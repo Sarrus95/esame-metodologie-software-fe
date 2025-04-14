@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="left">
+    <h1>Benvenuti nella nostra Community</h1>
+    <p>
+      Qui puoi inserire libri, vedere la lista degli utenti e far parte di una
+      community appassionata. Esplora tutto ciò che offriamo!
+    </p>
+  </div>
+  <div class="right">
+    <h2>Accedi</h2>
+    <form>
+      <div>
+        <label for="username">Username</label>
+        <input id="username" type="text" placeholder="Inserisci username" />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Inserisci password" />
+      </div>
+      <button type="submit">Login</button>
+    </form>
+    <p class="register-link">
+      Non hai un account? <a [routerLink]="['/register']">Registrati qui</a>
+    </p>
+  </div>
+</div>
+
