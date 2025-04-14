@@ -1,0 +1,72 @@
+.user-profile {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.profile-bio {
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.books-list {
+    margin-top: 20px;
+}
+
+.books-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.books-list li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.book-image {
+    width: 100px;
+    height: auto;
+}
+
+button {
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.book-form label {
+    display: block;
+    margin: 5px 0;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+.book-form button {
+    margin-top: 10px;
+}
