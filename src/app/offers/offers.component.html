@@ -1,2 +1,45 @@
 <app-navbar></app-navbar>
-<p>offers works!</p>
+<!-- offers.component.html -->
+<div class="offers-page">
+  <h1>Offerte di Libri</h1>
+
+  <!-- Filtri -->
+  <section class="filters">
+    <label for="genre">Genere:</label>
+    <select id="genre" [(ngModel)]="selectedGenre" (change)="applyFilters()">
+      <option value="">Tutti</option>
+      <option value="Fantasy">Fantasy</option>
+      <option value="Thriller">Thriller</option>
+      <option value="Romance">Romance</option>
+      <option value="Azione">Azione</option>
+      <option value="avvenyura">Avventura</option>
+      <option value="Fantascienza">Fantascienza</option>
+      <option value="Horror">Horror</option>
+      <option value="Epica">Epica</option>
+      <option value="Classico">Classico</option>
+      <!-- Altri generi -->
+    </select>
+
+    <label for="author">Autore:</label>
+    <input type="text" id="author" [(ngModel)]="selectedAuthor" (input)="applyFilters()" placeholder="Cerca autore...">
+
+    <!-- Vista -->
+    <div class="view-toggle">
+      <button (click)="changeView('grid')" [class.active]="viewMode === 'grid'">Griglia</button>
+      <button (click)="changeView('list')" [class.active]="viewMode === 'list'">Lista</button>
+    </div>
+  </section>
+
+  <!-- Lista Libri -->
+  <section class="book-list" [ngClass]="viewMode + '-view'">
+    <div *ngFor="let book of filteredBooks" class="book-item">
+      <img [src]="book.cover" alt="Copertina libro">
+      <div class="book-info">
+        <h3>{{ book.title }}</h3>
+        <p>{{ book.author }}</p>
+        <p>{{ book.genre }}</p>
+        <p class="price">{{ book.price | currency:'EUR' }}</p>
+      </div>
+    </div>
+  </section>
+</div>
