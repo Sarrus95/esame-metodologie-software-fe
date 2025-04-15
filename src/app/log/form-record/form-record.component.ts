@@ -1,20 +1,29 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {BookserviceService} from '../../services/bookservice.service';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { BookserviceService } from '../../services/bookservice.service';
+import { CommonModule, NgIf } from '@angular/common';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-form-record',
-  imports: [
-    ReactiveFormsModule
-  ],
+  imports: [ReactiveFormsModule, CommonModule, NgIf],
   templateUrl: './form-record.component.html',
-  styleUrl: './form-record.component.css'
+  styleUrl: './form-record.component.css',
 })
 export class FormRecordComponent {
   userForm: FormGroup;
+  creatingUser: boolean = false;
+  activationURL: string = '';
 
-  constructor(private fb: FormBuilder, private userService : BookserviceService) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: BookserviceService
+  ) {
     this.userForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -23,9 +32,23 @@ export class FormRecordComponent {
   }
   onSubmit() {
     if (this.userForm.valid) {
+      this.creatingUser = true;
       this.userService.signup(this.userForm.value).subscribe(
-        response => console.log('User signed up!', response),
-        error => console.error('Signup failed:', error)
+        (response) => {
+          this.activationURL = response.activationURL;
+          const modalElement = document.getElementById('activationModal');
+          const modal = new bootstrap.Modal(modalElement!);
+          modal.show();
+        },
+        (error) => {
+          this.creatingUser = false;
+          if (error.status === 409) {
+            const modalElement = document.getElementById('conflictModal');
+            const modal = new bootstrap.Modal(modalElement!);
+            modal.show();
+          }
+          this.userForm.reset();
+        }
       );
     }
   }

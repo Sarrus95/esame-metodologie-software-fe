@@ -17,3 +17,9 @@
   background-color: #0056b3;
   border-color: #004085;
 }
+
+.error-label{
+  font-weight: bold;
+  font-style: italic;
+  color: red;
+}

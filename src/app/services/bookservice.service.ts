@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class BookserviceService {
-  private API_URL = 'localhost:3000/users';
+  private API_URL = 'http://localhost:3000/users';
 
 
   constructor(private http: HttpClient) { }
