@@ -4,12 +4,24 @@
   font-family: Arial, sans-serif;
 }
 
-.filters {
+.top-bar {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: nowrap; /* Impedisce che vadano su righe diverse */
+  width: 100%;
+}
+
+.filters select {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+
+.view-toggle {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .view-toggle button {
@@ -22,6 +34,7 @@
   color: white;
   border-radius: 5px;
 }
+
 
 .book-list {
   display: grid;

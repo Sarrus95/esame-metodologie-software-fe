@@ -15,9 +15,9 @@ export class OffersComponent {
   selectedAuthor: string = '';
   
   books = [
-    { title: 'Libro 1', author: 'Autore 1', genre: 'Fantasy', price: 10, cover: 'book-cover1.jpg' },
-    { title: 'Libro 2', author: 'Autore 2', genre: 'Thriller', price: 15, cover: 'book-cover2.jpg' },
-    { title: 'Libro 3', author: 'Autore 3', genre: 'Romance', price: 12, cover: 'book-cover3.jpg' },
+    { title: 'Libro 1', author: 'Autore 1', genre: 'Fantasy', cover: 'book-cover1.jpg' },
+    { title: 'Libro 2', author: 'Autore 2', genre: 'Thriller', cover: 'book-cover2.jpg' },
+    { title: 'Libro 3', author: 'Autore 3', genre: 'Romance', cover: 'book-cover3.jpg' },
     // Aggiungi altri libri...
   ];
 
