@@ -1,14 +1,22 @@
-<div>
-  <h2>Registrati nella Community</h2>
-  <form>
-    <div>
-      <label for="username">Username</label>
-      <input id="username" type="text" placeholder="Inserisci username" />
+<div class="form-container">
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="card p-4 shadow rounded">
+    <h2 class="text-center mb-4">Sign Up</h2>
+
+    <div class="form-group mb-3">
+      <label for="username" class="form-label">Username:</label>
+      <input formControlName="username" id="username" type="text" class="form-control" placeholder="Enter your username" required>
     </div>
-    <div>
-      <label for="password">Password</label>
-      <input id="password" type="password" placeholder="Inserisci password" />
+
+    <div class="form-group mb-3">
+      <label for="email" class="form-label">Email:</label>
+      <input formControlName="email" id="email" type="email" class="form-control" placeholder="Enter your email" required>
     </div>
-    <button type="submit">Registrati</button>
+
+    <div class="form-group mb-4">
+      <label for="password" class="form-label">Password:</label>
+      <input formControlName="password" id="password" type="password" class="form-control" placeholder="Enter a strong password" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Register</button>
   </form>
 </div>
