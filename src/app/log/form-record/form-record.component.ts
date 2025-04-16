@@ -5,8 +5,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { BookserviceService } from '../../services/bookservice.service';
 import { CommonModule, NgIf } from '@angular/common';
+import { UserService } from '../../services/user-service.service';
 declare var bootstrap: any;
 
 @Component({
@@ -22,7 +22,7 @@ export class FormRecordComponent {
 
   constructor(
     private fb: FormBuilder,
-    private userService: BookserviceService
+    private userService: UserService
   ) {
     this.userForm = this.fb.group({
       username: ['', Validators.required],

@@ -1,5 +1,6 @@
 {
     "conventionalCommits.scopes": [
-        "form-record"
+        "form-record",
+        "services"
     ]
 }
