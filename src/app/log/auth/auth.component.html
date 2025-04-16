@@ -8,16 +8,52 @@
   </div>
   <div class="right">
     <h2>Accedi</h2>
-    <form>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div>
         <label for="username">Username</label>
-        <input id="username" type="text" placeholder="Inserisci username" />
+        <input
+          formControlName="username"
+          id="username"
+          type="text"
+          placeholder="Inserisci username"
+          required
+        />
+        <div
+          class="error-label"
+          *ngIf="
+            loginForm.controls['username'].touched &&
+            loginForm.controls['username'].hasError('required')
+          "
+        >
+          USERNAME IS REQUIRED
+        </div>
       </div>
       <div>
         <label for="password">Password</label>
-        <input id="password" type="password" placeholder="Inserisci password" />
+        <input
+          formControlName="password"
+          id="password"
+          type="password"
+          placeholder="Inserisci password"
+          required
+        />
+        <div
+          class="error-label"
+          *ngIf="
+            loginForm.controls['password'].touched &&
+            loginForm.controls['password'].hasError('required')
+          "
+        >
+          PASSWORD IS REQUIRED
+        </div>
       </div>
-      <button type="submit">Login</button>
+      <button
+        type="submit"
+        [disabled]="loginForm.invalid || attemptLogin"
+        class="btn btn-success w-100"
+      >
+        Login
+      </button>
     </form>
     <p class="register-link">
       Non hai un account? <a [routerLink]="['/register']">Registrati qui</a>
@@ -25,3 +61,28 @@
   </div>
 </div>
 
+<div
+  class="modal fade"
+  id="conflictModal"
+  tabindex="-1"
+  aria-labelledby="modalTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Invalid Login</h5>
+      </div>
+      <div class="modal-body">
+        <p>
+          The credentials inserted are invalid!
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
