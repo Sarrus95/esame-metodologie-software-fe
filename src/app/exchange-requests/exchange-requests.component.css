@@ -1,0 +1,44 @@
+.exchange-container {
+    padding: 1.5rem;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .request-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .request-list li {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fafafa;
+  }
+  
+  .status {
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    text-transform: capitalize;
+  }
+  
+  .status.accettata {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .status.rifiutata {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .status.in-attesa {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  

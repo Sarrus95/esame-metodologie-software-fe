@@ -4,6 +4,14 @@
   font-family: Arial, sans-serif;
 }
 
+hr {
+  border: none;
+  height: 2px;
+  background-color:black;
+  margin: 20px 0;
+}
+
+
 .top-bar {
   display: flex;
   justify-content: space-between;
