@@ -6,9 +6,12 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
-  imports: [FormsModule], // Import necessario per abilitare ngModel
+  imports: [FormsModule], // Abilitazione di ngModel per il modulo standalone
 })
 export class UserProfileComponent {
+editBook(_t35: any) {
+throw new Error('Method not implemented.');
+}
   // Informazioni personali
   userName: string = 'Mario Rossi';
   userBio: string = 'Amante della lettura e degli scambi culturali.';
@@ -37,42 +40,41 @@ export class UserProfileComponent {
   // Stato per libro attualmente in modifica
   currentBook: any = null;
 
-  // Aggiungi un nuovo libro
-  addBook(newBook: {
-    title: string;
-    author: string;
-    description: string;
-    image: string;
-  }) {
-    this.books.push(newBook);
+  // Funzione per impostare l'aggiunta di un nuovo libro
+  addNewBook() {
+    this.currentBook = { title: '', author: '', description: '', image: '' };
   }
 
-  // Modifica libro esistente
-  editBook(book: any) {
-    this.currentBook = { ...book }; // Copia del libro da modificare
-  }
-
-  // Salva le modifiche
+  // Salva le modifiche (aggiunta o modifica libro)
   saveBook() {
-    if (this.currentBook.title) {
+    if (
+      this.currentBook.title &&
+      this.currentBook.author &&
+      this.currentBook.description &&
+      this.currentBook.image
+    ) {
       const index = this.books.findIndex(
         (book) => book.title === this.currentBook.title
       );
       if (index !== -1) {
         this.books[index] = this.currentBook; // Modifica libro esistente
+        alert('Libro aggiornato correttamente!');
       } else {
         this.books.push(this.currentBook); // Aggiunta nuovo libro
+        alert('Nuovo libro aggiunto correttamente!');
       }
+      this.currentBook = null; // Resetta il modulo dopo il salvataggio
+    } else {
+      alert('Per favore, compila tutti i campi prima di salvare.');
     }
-    this.currentBook = null; // Resetta il modulo dopo il salvataggio
   }
 
-  // Elimina libro
+  // Elimina libro dalla lista
   deleteBook(index: number) {
     this.books.splice(index, 1);
   }
 
-  // Reset del modulo
+  // Resetta il modulo
   resetForm() {
     this.currentBook = null;
   }

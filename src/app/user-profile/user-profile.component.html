@@ -1,12 +1,11 @@
 <div class="user-profile">
-    <!-- Informazioni personali -->
     <div class="profile-header">
         <img [src]="userPhoto" alt="Foto profilo" class="profile-photo" />
         <h1>{{ userName }}</h1>
     </div>
     <p class="profile-bio">{{ userBio }}</p>
 
-    <!-- Modulo per aggiungere/modificare libri -->
+    <!-- Modulo per aggiungere o modificare un libro -->
     <div *ngIf="currentBook" class="book-form">
         <h2>{{ currentBook.title ? 'Modifica Libro' : 'Aggiungi Libro' }}</h2>
         <label>
@@ -29,23 +28,21 @@
         <button (click)="resetForm()">Annulla</button>
     </div>
 
-    <!-- Lista libri posseduti -->
+    <!-- Lista dei libri posseduti -->
     <div class="books-list">
         <h2>Libri Posseduti</h2>
-    <ul>
-        <li *ngFor="let book of books; let i = index">
-            <img [src]="book.image" alt="Immagine libro" class="book-image" />
-            <div>
-                <h3>{{ book.title }}</h3>
-                <p>Autore: {{ book.author }}</p>
-                <p>Descrizione: {{ book.description }}</p>
-            </div>
-            <button (click)="editBook(book)">Modifica</button>
-            <button (click)="deleteBook(i)">Elimina</button>
-        </li>
-    </ul>
-
-        <button (click)="currentBook = { title: '', author: '', description: '', image: '' }">Aggiungi Nuovo
-            Libro</button>
+        <ul>
+            <li *ngFor="let book of books; let i = index">
+                <img [src]="book.image" alt="Immagine libro" class="book-image" />
+                <div>
+                    <h3>{{ book.title }}</h3>
+                    <p>Autore: {{ book.author }}</p>
+                    <p>Descrizione: {{ book.description }}</p>
+                </div>
+                <button (click)="editBook(book)">Modifica</button>
+                <button (click)="deleteBook(i)">Elimina</button>
+            </li>
+        </ul>
+        <button (click)="addNewBook()">Aggiungi Nuovo Libro</button>
     </div>
 </div>
