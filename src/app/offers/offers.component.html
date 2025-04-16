@@ -34,8 +34,8 @@
 
   <!-- Lista Libri -->
   <section class="book-list" [ngClass]="viewMode + '-view'">
-    <div *ngFor="let book of filteredBooks" class="book-item">
-      <img [src]="book.cover" alt="Copertina libro">
+    <div *ngFor="let book of listBooks" class="book-item">
+      <img [src]="book.coverImg" alt="Copertina libro">
       <div class="book-info">
         <h3>{{ book.title }}</h3>
         <p>{{ book.author }}</p>
