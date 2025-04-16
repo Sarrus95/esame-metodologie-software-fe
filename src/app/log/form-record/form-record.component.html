@@ -1,22 +1,138 @@
 <div class="form-container">
-  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="card p-4 shadow rounded">
+  <form
+    [formGroup]="userForm"
+    (ngSubmit)="onSubmit()"
+    class="card p-4 shadow rounded"
+  >
     <h2 class="text-center mb-4">Sign Up</h2>
 
-    <div class="form-group mb-3">
+    <div class="form-group mb-3" onfocus="showErrorLabel()">
       <label for="username" class="form-label">Username:</label>
-      <input formControlName="username" id="username" type="text" class="form-control" placeholder="Enter your username" required>
+      <input
+        formControlName="username"
+        id="username"
+        type="text"
+        class="form-control"
+        placeholder="Enter your username"
+        required
+      />
+      <div
+        class="error-label"
+        *ngIf="
+          userForm.controls['username'].touched &&
+          userForm.controls['username'].hasError('required')
+        "
+      >
+        USERNAME IS REQUIRED
+      </div>
     </div>
 
     <div class="form-group mb-3">
       <label for="email" class="form-label">Email:</label>
-      <input formControlName="email" id="email" type="email" class="form-control" placeholder="Enter your email" required>
+      <input
+        formControlName="email"
+        id="email"
+        type="email"
+        class="form-control"
+        placeholder="Enter your email"
+        required
+      />
+      <div
+        class="error-label"
+        *ngIf="
+          userForm.controls['email'].touched &&
+          userForm.controls['email'].hasError('required')
+        "
+      >
+        EMAIL IS REQUIRED
+      </div>
     </div>
 
-    <div class="form-group mb-4">
+    <div class="form-group mb-4" onfocus="showErrorLabel()">
       <label for="password" class="form-label">Password:</label>
-      <input formControlName="password" id="password" type="password" class="form-control" placeholder="Enter a strong password" required>
+      <input
+        formControlName="password"
+        id="password"
+        type="password"
+        class="form-control"
+        placeholder="Enter a strong password"
+        required
+      />
+      <div
+        class="error-label"
+        *ngIf="
+          userForm.controls['password'].touched &&
+          userForm.controls['password'].hasError('required')
+        "
+      >
+        PASSWORD MUST BE AT LEAST 8 CHARACTERS LONG
+      </div>
     </div>
 
-    <button type="submit" class="btn btn-primary w-100">Register</button>
+    <button
+      type="submit"
+      [disabled]="userForm.invalid || creatingUser"
+      class="btn btn-primary w-100"
+    >
+      Register
+    </button>
   </form>
+</div>
+
+<div
+  class="modal fade"
+  id="activationModal"
+  tabindex="-1"
+  aria-labelledby="modalTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">User Created</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Activate your account here:</p>
+        <a [href]="activationURL" target="_blank">{{ activationURL }}</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="conflictModal"
+  tabindex="-1"
+  aria-labelledby="modalTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">User Already Registered</h5>
+      </div>
+      <div class="modal-body">
+        <p>
+          A user with this email already exists. Please use a different email or
+          check your account details.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
