@@ -47,9 +47,9 @@ export class FormRecordComponent {
             const modal = new bootstrap.Modal(modalElement!);
             modal.show();
           }
-          this.userForm.reset();
         }
       );
     }
+    this.userForm.reset();
   }
 }

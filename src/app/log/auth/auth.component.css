@@ -75,3 +75,9 @@ button:hover {
 .register-link a:hover {
   text-decoration: underline;
 }
+
+.error-label{
+  font-weight: bold;
+  font-style: italic;
+  color: red;
+}
