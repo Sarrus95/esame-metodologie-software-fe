@@ -18,8 +18,4 @@ export class BookService {
     const headers = { "Authorization" : this.authToken };
     return this.http.get(`${this.API_URL}/`, { headers });
   }
-
-  getFilteredBooks(filters: any): Observable<any>{
-    const params = 
-  }
 }
