@@ -11,15 +11,11 @@ export class BookService {
   private authToken = '';
 
   constructor(private http: HttpClient,private localStorage: LocalStorageService) {
-    this.authToken = localStorage.get("authToken") || "";
+    this.authToken = this.localStorage.get("authToken") || "";
   }
 
   getBooks(): Observable<any> {
     const headers = { "Authorization" : this.authToken };
     return this.http.get(`${this.API_URL}/`, { headers });
-  }
-
-  getFilteredBooks(filters: any): Observable<any>{
-    const params = 
   }
 }
