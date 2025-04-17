@@ -6,35 +6,47 @@
   <hr>
 
   <!-- Wrapper per mantenere filters a sinistra e search a destra -->
-<div class="top-bar">
-  <section class="filters">
-    <select id="genre" [(ngModel)]="selectedGenre" (change)="applyFilters()">
-      <option value="">GENERE</option>
-      <option *ngFor="let genre of genres" [value]="genre.name">
-        {{ genre.icon }} {{ genre.name }}
-      </option>
-    </select>
-  </section>
-  
+  <div class="top-bar">
+    <section class="filters">
+          <!-- Filtro per genere -->
+    <section class="filters">
+      <select id="genre" [(ngModel)]="selectedGenre" (change)="applyFilters()">
+        <option value="">GENERE</option>
+        <option *ngFor="let genre of genres" [value]="genre.name">
+          <span [innerHTML]="genre.icon"></span> {{ genre.name }}
+        </option>
+      </select>
+    </section>
 
-  <section class="search">
-  
-    <div class="view-toggle">
-      <button (click)="changeView('grid')" [class.active]="viewMode === 'grid'">Griglia</button>
-      <button (click)="changeView('list')" [class.active]="viewMode === 'list'">Lista</button>
-    </div>
-  </section>
-</div>
+    <!-- Filtro per condizione -->
+    <section class="filters">
+      <select id="condition" [(ngModel)]="selectedCondition" (change)="applyFilters()">
+        <option value="">CONDIZIONI</option>
+        <option *ngFor="let condition of conditions" [value]="condition.name">
+          <span [innerHTML]="condition.icon"></span> {{ condition.name }}
+        </option>
+      </select>
+    </section>
+    </section>
 
+    <!-- Opzioni di visualizzazione -->
+    <section class="search">
+      <div class="view-toggle">
+        <button (click)="changeView('grid')" [class.active]="viewMode === 'grid'">Griglia</button>
+        <button (click)="changeView('list')" [class.active]="viewMode === 'list'">Lista</button>
+      </div>
+    </section>
+  </div>
 
   <!-- Lista Libri -->
   <section class="book-list" [ngClass]="viewMode + '-view'">
-    <div *ngFor="let book of listBooks" class="book-item">
-      <img [src]="book.coverImg" alt="Copertina libro">
+    <div *ngFor="let book of filteredBooks" class="book-item">
+      <img [src]="book.cover" alt="Copertina libro">
       <div class="book-info">
         <h3>{{ book.title }}</h3>
         <p>{{ book.author }}</p>
         <p>{{ book.genre }}</p>
+        <p>{{ book.condition }}</p>  <!-- Mostriamo la condizione del libro -->
       </div>
     </div>
   </section>

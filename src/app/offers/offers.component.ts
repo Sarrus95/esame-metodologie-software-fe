@@ -12,9 +12,9 @@ import { BookService } from '../services/bookservice.service';
   styleUrls: ['./offers.component.css']
 })
 export class OffersComponent {
-  viewMode: 'grid' | 'list' = 'grid';
+  viewMode: 'grid' | 'list' = 'grid';  // Impostiamo la vista iniziale su 'grid'
   selectedGenre: string = '';
-  selectedAuthor: string = '';
+  selectedCondition: string = '';
   listBooks: any[] = [];
   filteredBooks: any[] = [];
 
@@ -42,6 +42,14 @@ export class OffersComponent {
     { name: 'Narrativa contemporanea', icon: '📖' }
   ];
 
+  // Lista delle condizioni dei libri con relative icone
+  conditions = [
+    { name: 'Nuovo', icon: '🆕' },
+    { name: 'Pari al nuovo', icon: '✨' },
+    { name: 'Discreto', icon: '📚' },
+    { name: 'Rovinato', icon: '🛠️' }
+  ];
+
   constructor(private bookService: BookService) {}
 
   ngOnInit() {
@@ -51,15 +59,17 @@ export class OffersComponent {
     });
   }
 
+  // Cambia la modalità di visualizzazione
   changeView(mode: 'grid' | 'list') {
     this.viewMode = mode;
   }
 
+  // Applicazione dei filtri
   applyFilters() {
     this.filteredBooks = this.listBooks.filter(book => {
       const matchesGenre = this.selectedGenre ? book.genre === this.selectedGenre : true;
-      const matchesAuthor = this.selectedAuthor ? book.author.toLowerCase().includes(this.selectedAuthor.toLowerCase()) : true;
-      return matchesGenre && matchesAuthor;
+      const matchesCondition = this.selectedCondition ? book.condition === this.selectedCondition : true;
+      return matchesGenre && matchesCondition;
     });
   }
 }
