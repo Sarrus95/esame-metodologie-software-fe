@@ -6,6 +6,8 @@
     <button (click)="changeView('history')" [class.active]="viewMode === 'history'">Storico Operazioni</button>
   </div>
 
+<hr> <hr>
+
   <!-- Sezione per le richieste ricevute -->
   <div *ngIf="viewMode === 'received'">
     <h2>Richieste Ricevute</h2>
@@ -17,7 +19,7 @@
     </ul>
   </div>
 
-  <hr>
+
 
   <!-- Sezione per le richieste inviate -->
   <div *ngIf="viewMode === 'sent'">
@@ -29,8 +31,7 @@
       </li>
     </ul>
   </div>
-
-  <hr>
+  
 
   <!-- Sezione per lo storico delle operazioni -->
   <div *ngIf="viewMode === 'history'">
