@@ -33,4 +33,20 @@ export class ExchangeRequestsComponent {
   changeView(mode: 'received' | 'sent' | 'history') {
     this.viewMode = mode;
   }
+
+  // Funzione per determinare la classe CSS in base allo stato
+  getRequestClass(status: string): string {
+    switch (status) {
+      case 'Accettata':
+        return 'accepted';
+      case 'Rifiutata':
+        return 'rejected';
+      case 'In attesa':
+        return 'pending';
+      case 'Completato':
+        return 'completed';
+      default:
+        return '';
+    }
+  }
 }

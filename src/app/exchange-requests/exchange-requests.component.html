@@ -10,8 +10,8 @@
   <div *ngIf="viewMode === 'received'">
     <h2>Richieste Ricevute</h2>
     <ul class="request-list">
-      <li *ngFor="let req of receivedRequests">
-        <strong>{{ req.from }}</strong> ti ha proposto lo scambio di <em>{{ req.title }}</em> 
+      <li *ngFor="let req of receivedRequests" [ngClass]="getRequestClass(req.status)">
+        <strong>{{ req.from }}</strong> ti ha proposto lo scambio di <strong>{{ req.title }}</strong> 
         <span class="status" [class]="req.status.toLowerCase()">{{ req.status }}</span>
       </li>
     </ul>
@@ -23,8 +23,8 @@
   <div *ngIf="viewMode === 'sent'">
     <h2>Richieste Inviate</h2>
     <ul class="request-list">
-      <li *ngFor="let req of sentRequests">
-        Hai chiesto a <strong>{{ req.to }}</strong> lo scambio di <em>{{ req.title }}</em> 
+      <li *ngFor="let req of sentRequests" [ngClass]="getRequestClass(req.status)">
+        Hai chiesto a <strong>{{ req.to }}</strong> lo scambio di <strong>{{ req.title }}</strong> 
         <span class="status" [class]="req.status.toLowerCase()">{{ req.status }}</span>
       </li>
     </ul>
@@ -36,8 +36,8 @@
   <div *ngIf="viewMode === 'history'">
     <h2>Storico delle Operazioni</h2>
     <ul class="request-list">
-      <li *ngFor="let operation of history">
-        <strong>{{ operation.user }}</strong> ha completato lo scambio di <em>{{ operation.title }}</em> 
+      <li *ngFor="let operation of history" [ngClass]="getRequestClass(operation.status)">
+        <strong>{{ operation.user }}</strong> ha completato lo scambio di <strong>{{ operation.title }}</strong> 
         <span class="status" [class]="operation.status.toLowerCase()">{{ operation.status }}</span>
         <span class="date">{{ operation.date }}</span>
       </li>

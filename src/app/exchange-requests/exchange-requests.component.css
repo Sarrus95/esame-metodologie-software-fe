@@ -37,28 +37,33 @@
   justify-content: space-between;
   align-items: center;
   background-color: #fafafa;
+  transition: background-color 0.3s ease; /* Per una transizione fluida */
 }
+
+/* Colori per lo stato di ogni riquadro */
+.request-list li.accepted {
+  background-color: #d4edda; 
+}
+
+.request-list li.rejected {
+  background-color: #f8d7da; 
+}
+
+.request-list li.pending {
+  background-color: #ffffff; 
+}
+
+.request-list li.completed {
+  background-color: #cce5ff; 
+}
+
 
 .status {
   padding: 0.3rem 0.6rem;
   border-radius: 5px;
   font-size: 0.85rem;
   text-transform: capitalize;
-}
-
-.status.accettata {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.status.rifiutata {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-.status.in-attesa {
-  background-color: #fff3cd;
-  color: #856404;
+  color: #000000;
 }
 
 .date {
