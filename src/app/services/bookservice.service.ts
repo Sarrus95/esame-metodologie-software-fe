@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookService {
   private API_URL = 'http://localhost:3000/books';
-  private authToken = '4fe9245c-4466-4b1e-bea2-9195429abb52';
+  private authToken = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private localStorage: LocalStorageService) {
+    this.authToken = this.localStorage.get("authToken") || "";
+  }
 
   getBooks(): Observable<any> {
     const headers = { "Authorization" : this.authToken };
