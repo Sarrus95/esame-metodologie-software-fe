@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "form-record",
         "services",
-        "auth component"
+        "auth component",
+        "localStorage"
     ]
 }
