@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -10,37 +11,41 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule, CommonModule],
 })
 export class UserProfileComponent implements OnInit {
-  // Informazioni personali
   userName: string = 'Mario Rossi';
   userBio: string = 'Amante della lettura e degli scambi culturali.';
   userPhoto: string =
     'https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png';
 
-  // Lista dei libri
-  books: any[] = [];
+  books: any[] = []; // Libri posseduti
+  interests: any[] = []; // Lista "Interessi-Cercati"
+  currentBook: any = null; // Per aggiungere/modificare un libro nella lista posseduta
+  currentBookIndex: number | null = null; // Indice del libro in modifica
 
-  // Stato per libro attualmente in modifica
-  currentBook: any = null;
+  constructor(private router: Router) {}
 
-  // Recupera i libri dal localStorage all'avvio
   ngOnInit() {
     const savedBooks = localStorage.getItem('books');
+    const savedInterests = localStorage.getItem('interests');
+
     if (savedBooks) {
-      this.books = JSON.parse(savedBooks); // Recupera la lista di libri salvata
+      this.books = JSON.parse(savedBooks);
+    }
+    if (savedInterests) {
+      this.interests = JSON.parse(savedInterests);
     }
   }
 
-  // Imposta l'aggiunta di un nuovo libro
+  // Funzionalità per aggiungere/modificare libri
   addNewBook() {
     this.currentBook = { title: '', author: '', description: '', image: '' };
+    this.currentBookIndex = null; // Reset per aggiungere un nuovo libro
   }
 
-  // Modifica un libro esistente
   editBook(index: number) {
-    this.currentBook = { ...this.books[index] }; // Clona l'oggetto del libro da modificare
+    this.currentBook = { ...this.books[index] }; // Copia i dati del libro selezionato
+    this.currentBookIndex = index; // Salva l'indice del libro da modificare
   }
 
-  // Salva le modifiche (aggiunta o modifica libro)
   saveBook() {
     if (
       this.currentBook.title &&
@@ -48,31 +53,34 @@ export class UserProfileComponent implements OnInit {
       this.currentBook.description &&
       this.currentBook.image
     ) {
-      const index = this.books.findIndex(
-        (book) => book.title === this.currentBook.title
-      );
-      if (index !== -1) {
-        this.books[index] = this.currentBook; // Modifica libro esistente
+      if (this.currentBookIndex !== null) {
+        // Modifica di un libro esistente
+        this.books[this.currentBookIndex] = this.currentBook;
         alert('Libro aggiornato correttamente!');
       } else {
-        this.books.push(this.currentBook); // Aggiunta nuovo libro
+        // Aggiunta di un nuovo libro
+        this.books.push(this.currentBook);
         alert('Nuovo libro aggiunto correttamente!');
       }
-      localStorage.setItem('books', JSON.stringify(this.books)); // Salva la lista aggiornata nel localStorage
-      this.currentBook = null; // Resetta il modulo dopo il salvataggio
+      localStorage.setItem('books', JSON.stringify(this.books));
+      this.currentBook = null; // Reset del form
+      this.currentBookIndex = null;
     } else {
-      alert('Per favore, compila tutti i campi prima di salvare.');
+      alert('Per favore, compila tutti i campi per salvare.');
     }
   }
 
-  // Elimina un libro dalla lista
   deleteBook(index: number) {
-    this.books.splice(index, 1); // Rimuove il libro dalla lista
-    localStorage.setItem('books', JSON.stringify(this.books)); // Aggiorna il localStorage
+    this.books.splice(index, 1);
+    localStorage.setItem('books', JSON.stringify(this.books));
   }
 
-  // Resetta il modulo
+  navigateToDetails(index: number) {
+    this.router.navigate(['/book-details', index.toString()]);
+  }
+
   resetForm() {
     this.currentBook = null;
+    this.currentBookIndex = null;
   }
 }

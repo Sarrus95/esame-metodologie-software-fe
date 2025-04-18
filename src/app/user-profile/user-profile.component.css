@@ -39,6 +39,7 @@
 .book-image {
     width: 100px;
     height: auto;
+    cursor: pointer;
 }
 
 button {
@@ -70,3 +71,4 @@ textarea {
 .book-form button {
     margin-top: 10px;
 }
+

@@ -1,7 +1,12 @@
-<div class="book-details">
-    <h1>{{ bookTitle }}</h1>
-    <h2>di {{ bookAuthor }}</h2>
-    <img [src]="bookImage" alt="Copertina del libro" class="book-image" />
-    <p>{{ bookDescription }}</p>
-    <button (click)="requestExchange()">Invia Richiesta di Scambio</button>
+<div class="book-details" *ngIf="book">
+    <h1>{{ book.title }}</h1>
+    <h2>di {{ book.author }}</h2>
+    <img [src]="book.image" alt="Copertina del libro" class="book-image" />
+    <p>{{ book.description }}</p>
+
+    <!-- Azioni -->
+    <div class="book-actions">
+        <button (click)="requestExchange()">Invia Richiesta di Scambio</button>
+        <button (click)="goBack()">Torna Indietro</button>
+    </div>
 </div>
