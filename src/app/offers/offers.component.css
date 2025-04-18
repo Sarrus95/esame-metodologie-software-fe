@@ -7,10 +7,9 @@
 hr {
   border: none;
   height: 2px;
-  background-color:black;
+  background-color: black;
   margin: 20px 0;
 }
-
 
 .top-bar {
   display: flex;
@@ -21,11 +20,31 @@ hr {
   width: 100%;
 }
 
+/* Sezione filtri */
+.filters {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Spazio tra i filtri */
+  align-items: center;
+}
+
 .filters select {
   padding: 0.5rem;
   font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
 }
 
+.filters select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.filters select option {
+  padding: 0.5rem;
+}
 
 .view-toggle {
   display: flex;
@@ -43,7 +62,7 @@ hr {
   border-radius: 5px;
 }
 
-
+/* Griglia di libri */
 .book-list {
   display: grid;
   gap: 1.5rem;
@@ -82,3 +101,31 @@ hr {
   font-weight: bold;
   color: #27ae60;
 }
+
+/* Aggiunto per le icone di condizione */
+.condition-icon {
+  margin-right: 8px;
+}
+
+/* Stile per la visualizzazione della condizione */
+.book-condition {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  
+}
+
+.book-condition span {
+  margin-left: 5px;
+}
+
+.book-condition .icon {
+  font-size: 1.2rem;
+  margin-right: 5px;
+}
+
+/* Aggiungi stili per ogni icona di condizione (opzionale) */
+.book-condition .nuovo { color: #007bff; }
+.book-condition .pari-al-nuovo { color: #27ae60; }
+.book-condition .discreto { color: #f39c12; }
+.book-condition .vecchio { color: #e74c3c; }

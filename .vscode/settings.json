@@ -3,6 +3,7 @@
         "form-record",
         "services",
         "auth component",
-        "localStorage"
+        "localStorage",
+        "offers"
     ]
 }

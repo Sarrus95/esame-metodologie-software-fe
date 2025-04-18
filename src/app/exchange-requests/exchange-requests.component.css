@@ -1,44 +1,73 @@
 .exchange-container {
-    padding: 1.5rem;
-    max-width: 800px;
-    margin: auto;
-  }
-  
-  .request-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .request-list li {
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fafafa;
-  }
-  
-  .status {
-    padding: 0.3rem 0.6rem;
-    border-radius: 5px;
-    font-size: 0.85rem;
-    text-transform: capitalize;
-  }
-  
-  .status.accettata {
-    background-color: #d4edda;
-    color: #155724;
-  }
-  
-  .status.rifiutata {
-    background-color: #f8d7da;
-    color: #721c24;
-  }
-  
-  .status.in-attesa {
-    background-color: #fff3cd;
-    color: #856404;
-  }
-  
+  padding: 1.5rem;
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Stili per i bottoni per cambiare vista */
+.view-toggle {
+  margin-bottom: 1rem;
+}
+
+.view-toggle button {
+  padding: 0.5rem 1rem;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+}
+
+.view-toggle button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.request-list {
+  list-style: none;
+  padding: 0;
+}
+
+.request-list li {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+  transition: background-color 0.3s ease; /* Per una transizione fluida */
+}
+
+/* Colori per lo stato di ogni riquadro */
+.request-list li.accepted {
+  background-color: #d4edda; 
+}
+
+.request-list li.rejected {
+  background-color: #f8d7da; 
+}
+
+.request-list li.pending {
+  background-color: #ffffff; 
+}
+
+.request-list li.completed {
+  background-color: #cce5ff; 
+}
+
+
+.status {
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+  color: #000000;
+}
+
+.date {
+  font-size: 0.75rem;
+  color: #6c757d;
+  margin-left: 10px;
+}
