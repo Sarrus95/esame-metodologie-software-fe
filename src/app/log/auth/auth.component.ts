@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../services/user-service.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 declare var bootstrap: any;
 
 @Component({
@@ -23,7 +24,8 @@ export class AuthComponent {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -36,7 +38,7 @@ export class AuthComponent {
       this.attemptLogin = true;
       this.userService.login(this.loginForm.value).subscribe({
         next: (response) => {
-          console.log(response);
+          this.localStorage.set("authToken",response.loginAuthToken)
           this.router.navigate(['/offerte']);
         },
         error: (error) => {

@@ -1,1 +1,22 @@
-<p>exchange-requests works!</p>
+<div class="exchange-container">
+
+    <h2>Richieste Ricevute</h2>
+    <ul class="request-list">
+      <li *ngFor="let req of receivedRequests">
+        <strong>{{ req.from }}</strong> ti ha proposto lo scambio di <em>{{ req.title }}</em> 
+        <span class="status" [class]="req.status.toLowerCase()">{{ req.status }}</span>
+      </li>
+    </ul>
+  
+    <hr>
+  
+    <h2>Richieste Inviate</h2>
+    <ul class="request-list">
+      <li *ngFor="let req of sentRequests">
+        Hai chiesto a <strong>{{ req.to }}</strong> lo scambio di <em>{{ req.title }}</em> 
+        <span class="status" [class]="req.status.toLowerCase()">{{ req.status }}</span>
+      </li>
+    </ul>
+  
+  </div>
+  
