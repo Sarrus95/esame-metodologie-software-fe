@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./exchange-requests.component.css']
 })
 export class ExchangeRequestsComponent {
+  // Le richieste in arrivo e inviate
   receivedRequests = [
     { title: 'Il Custode delle Ombre', from: 'Mario', status: 'In attesa' },
     { title: 'La Spada del Re', from: 'Luca', status: 'Accettata' },
@@ -18,4 +19,34 @@ export class ExchangeRequestsComponent {
     { title: 'Cuori in Tempesta', to: 'Giulia', status: 'Rifiutata' },
     { title: 'Odissea Eterna', to: 'Chiara', status: 'In attesa' },
   ];
+
+  // Storico delle operazioni (esempio)
+  history = [
+    { user: 'Mario', title: 'Il Custode delle Ombre', status: 'Completato', date: '2025-04-12' },
+    { user: 'Luca', title: 'La Spada del Re', status: 'Completato', date: '2025-04-10' },
+  ];
+
+  // Stato per controllare quale sezione è attiva
+  viewMode: 'received' | 'sent' | 'history' = 'received'; // Default: visualizza le richieste ricevute
+
+  // Funzione per cambiare la vista
+  changeView(mode: 'received' | 'sent' | 'history') {
+    this.viewMode = mode;
+  }
+
+  // Funzione per determinare la classe CSS in base allo stato
+  getRequestClass(status: string): string {
+    switch (status) {
+      case 'Accettata':
+        return 'accepted';
+      case 'Rifiutata':
+        return 'rejected';
+      case 'In attesa':
+        return 'pending';
+      case 'Completato':
+        return 'completed';
+      default:
+        return '';
+    }
+  }
 }
