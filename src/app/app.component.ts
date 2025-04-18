@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router'; 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
   standalone: true,
-  styleUrls: ['./app.component.css'], // Notare "styleUrls"
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  imports: [RouterModule] // Assicurati di importare il modulo di routing
 })
-export class AppComponent {
-  title = 'bookexchange';
-}
+export class AppComponent {}

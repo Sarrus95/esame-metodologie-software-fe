@@ -1,1 +1,121 @@
-<p>user-profile works!</p>
+<div class="user-profile">
+  <!-- Profilo Utente -->
+  <div class="profile-header">
+    <img [src]="userPhoto" alt="Foto profilo" class="profile-photo" />
+    <h1>{{ userName }}</h1>
+  </div>
+  <p class="profile-bio">{{ userBio }}</p>
+
+
+  <!-- Lista dei Libri Posseduti -->
+  <div class="books-list">
+    <h2>Libri Posseduti</h2>
+    <ul>
+      <li *ngFor="let book of books; let i = index" class="book-item">
+        <img [src]="book.image" [alt]="book.title" class="book-image" (click)="navigateToDetails(i)" />
+        <div class="book-details">
+          <h3 (click)="navigateToDetails(i)">{{ book.title }}</h3>
+          <p>Autore: {{ book.author }}</p>
+          <p>Descrizione: {{ book.description }}</p>
+        </div>
+        <!-- Azioni -->
+        <div class="book-actions">
+          <button (click)="editBook(i)">Modifica</button>
+          <button (click)="deleteBook(i)">Elimina</button>
+        </div>
+      </li>
+    </ul>
+    <button (click)="addNewBook()">Aggiungi Nuovo Libro</button>
+
+    <!-- Modulo per aggiungere o modificare un libro -->
+    <div *ngIf="currentBook" class="book-form">
+      <h2>{{ currentBookIndex !== null ? 'Modifica Libro' : 'Aggiungi Libro' }}</h2>
+      <label>
+        Titolo:
+        <input [(ngModel)]="currentBook.title" placeholder="Titolo" />
+      </label>
+      <label>
+        Autore:
+        <input [(ngModel)]="currentBook.author" placeholder="Autore" />
+      </label>
+      <label>
+        Descrizione:
+        <textarea [(ngModel)]="currentBook.description" placeholder="Descrizione"></textarea>
+      </label>
+      <label>
+        Immagine URL:
+        <input [(ngModel)]="currentBook.image" placeholder="URL Immagine" />
+      </label>
+      <div class="form-buttons">
+        <button (click)="saveBook()">Salva</button>
+        <button (click)="resetForm()">Annulla</button>
+      </div>
+    </div>
+
+
+
+    <!-- Sezione Libri Cercati -->
+    <div class="interests-list">
+      <h2>Libri Cercati</h2>
+      <ul>
+        <li *ngFor="let interest of interests; let i = index" class="interest-item">
+          <div class="interest-details">
+            <h3>{{ interest.title }}</h3>
+            <p>Autore: {{ interest.author }}</p>
+            <p>Descrizione: {{ interest.description }}</p>
+          </div>
+          <div class="interest-actions">
+            <button (click)="editInterest(i)">Modifica</button>
+            <button (click)="deleteInterest(i)">Elimina</button>
+          </div>
+        </li>
+      </ul>
+      <button (click)="addNewInterest()">Aggiungi Nuovo Interesse</button>
+
+      <!-- Modulo per aggiungere o modificare un interesse -->
+      <div *ngIf="currentInterest" class="interest-form">
+        <h3>{{ currentInterestIndex !== null ? 'Modifica Libro Cercato' : 'Aggiungi Libro Cercato' }}</h3>
+        <label>
+          Titolo:
+          <input [(ngModel)]="currentInterest.title" placeholder="Titolo" />
+        </label>
+        <label>
+          Autore:
+          <input [(ngModel)]="currentInterest.author" placeholder="Autore" />
+        </label>
+        <label>
+          Descrizione:
+          <textarea [(ngModel)]="currentInterest.description" placeholder="Descrizione"></textarea>
+        </label>
+        <div class="form-buttons">
+          <button (click)="saveInterest()">Salva</button>
+          <button (click)="resetInterestForm()">Annulla</button>
+        </div>
+      </div>
+
+
+      <div class="requests-section">
+        <h2>Richieste di Libri</h2>
+
+        <!-- Richieste Inviate -->
+        <div class="requests-sent">
+          <h3>Richieste Inviate</h3>
+          <ul>
+            <li *ngFor="let request of requestsSent">
+              <p><strong>{{ request.bookTitle }}</strong> di {{ request.author }}</p>
+              <p>Stato: {{ request.status }}</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Richieste Ricevute -->
+        <div class="requests-received">
+          <h3>Richieste Ricevute</h3>
+          <ul>
+            <li *ngFor="let request of requestsReceived">
+              <p><strong>{{ request.bookTitle }}</strong> di {{ request.author }}</p>
+              <p>Stato: {{ request.status }}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
