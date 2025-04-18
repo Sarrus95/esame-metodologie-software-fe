@@ -41,8 +41,9 @@ export class UserProfileComponent implements OnInit {
 
   requestsSent: BookRequest[] = [];
   requestsReceived: BookRequest[] = [];
+  i: number | undefined;
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
+  constructor(private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     const savedBooks = localStorage.getItem('books');
@@ -183,5 +184,40 @@ export class UserProfileComponent implements OnInit {
       );
     }
     console.log('Richiesta accettata correttamente!');
+  }
+  moveBookUp(index: number): void {
+    if (index > 0) {
+      const temp = this.books[index];
+      this.books[index] = this.books[index - 1];
+      this.books[index - 1] = temp;
+      localStorage.setItem('books', JSON.stringify(this.books));
+    }
+  }
+
+  moveBookDown(index: number): void {
+    if (index < this.books.length - 1) {
+      const temp = this.books[index];
+      this.books[index] = this.books[index + 1];
+      this.books[index + 1] = temp;
+      localStorage.setItem('books', JSON.stringify(this.books));
+    }
+  }
+
+  moveInterestUp(index: number): void {
+    if (index > 0) {
+      const temp = this.interests[index];
+      this.interests[index] = this.interests[index - 1];
+      this.interests[index - 1] = temp;
+      localStorage.setItem('interests', JSON.stringify(this.interests));
+    }
+  }
+
+  moveInterestDown(index: number): void {
+    if (index < this.interests.length - 1) {
+      const temp = this.interests[index];
+      this.interests[index] = this.interests[index + 1];
+      this.interests[index + 1] = temp;
+      localStorage.setItem('interests', JSON.stringify(this.interests));
+    }
   }
 }
