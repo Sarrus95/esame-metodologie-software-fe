@@ -38,7 +38,7 @@ export class AuthComponent {
       this.attemptLogin = true;
       this.userService.login(this.loginForm.value).subscribe({
         next: (response) => {
-          this.localStorage.set("authToken",response.loginAuthToken)
+          this.localStorage.set("loginAuthToken",response.loginAuthToken)
           this.router.navigate(['/offerte']);
         },
         error: (error) => {
