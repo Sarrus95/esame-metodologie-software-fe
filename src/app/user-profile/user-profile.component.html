@@ -22,6 +22,8 @@
         <div class="book-actions">
           <button (click)="editBook(i)">Modifica</button>
           <button (click)="deleteBook(i)">Elimina</button>
+          <button (click)="moveBookUp(i)" [disabled]="i === 0">Su</button>
+          <button (click)="moveBookDown(i)" [disabled]="i === books.length - 1">Giù</button>
         </div>
       </li>
     </ul>
@@ -67,6 +69,8 @@
           <div class="interest-actions">
             <button (click)="editInterest(i)">Modifica</button>
             <button (click)="deleteInterest(i)">Elimina</button>
+            <button (click)="moveInterestUp(i)" [disabled]="i === 0">Su</button>
+            <button (click)="moveInterestDown(i)" [disabled]="i === books.length - 1">Giù</button>
           </div>
         </li>
       </ul>
