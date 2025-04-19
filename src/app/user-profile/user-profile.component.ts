@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 import { BookRequest } from '../models/request.model';
+import { NavbarComponent } from "../log/navbar/navbar.component";
 
 interface Book {
   title: string;
@@ -23,7 +24,7 @@ interface Interest {
   standalone: true,
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, NavbarComponent],
 })
 export class UserProfileComponent implements OnInit {
   userName: string = 'Mario Rossi';

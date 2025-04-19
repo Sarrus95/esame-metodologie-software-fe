@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { AuthComponent } from './log/auth/auth.component';
 import { FormRecordComponent } from './log/form-record/form-record.component';
-import { HomepageComponent } from './log/homepage/homepage/homepage.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { OffersComponent } from './offers/offers.component';
 import { ExchangeRequestsComponent } from './exchange-requests/exchange-requests.component';

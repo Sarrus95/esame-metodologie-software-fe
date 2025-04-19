@@ -39,7 +39,7 @@ export class AuthComponent {
       this.userService.login(this.loginForm.value).subscribe({
         next: (response) => {
           this.localStorage.set("loginAuthToken",response.loginAuthToken)
-          this.router.navigate(['/offerte']);
+          this.router.navigate(['/home']);
         },
         error: (error) => {
           this.attemptLogin = false;
