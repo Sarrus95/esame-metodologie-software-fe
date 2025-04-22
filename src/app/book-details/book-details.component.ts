@@ -40,6 +40,6 @@ export class BookDetailsComponent implements OnInit {
 
   // Funzione per tornare indietro alla lista dei libri
   goBack() {
-    this.router.navigate(['']); // Naviga alla root o pagina principale
+    this.router.navigate(['/profile']); 
   }
 }
