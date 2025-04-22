@@ -20,10 +20,14 @@
         </div>
         <!-- Azioni -->
         <div class="book-actions">
-          <button (click)="editBook(i)">Modifica</button>
-          <button (click)="deleteBook(i)">Elimina</button>
-          <button (click)="moveBookUp(i)" [disabled]="i === 0">Su</button>
-          <button (click)="moveBookDown(i)" [disabled]="i === books.length - 1">Giù</button>
+          <div class="action-buttons">
+            <button (click)="editBook(i)">Modifica</button>
+            <button (click)="deleteBook(i)">Elimina</button>
+          </div>
+          <div class="arrow-buttons">
+            <button class="arrow-button" (click)="moveBookUp(i)" [disabled]="i === 0">🔼</button>
+            <button class="arrow-button" (click)="moveBookDown(i)" [disabled]="i === books.length - 1">🔽</button>
+          </div>
         </div>
       </li>
     </ul>
@@ -53,12 +57,13 @@
         <button (click)="resetForm()">Annulla</button>
       </div>
     </div>
+  </div>
 
 
 
     <!-- Sezione Libri Cercati -->
-    <div class="interests-list">
-      <h2>Libri Cercati</h2>
+  <div class="interests-list">
+    <h2>Libri Cercati</h2>
       <ul>
         <li *ngFor="let interest of interests; let i = index" class="interest-item">
           <div class="interest-details">
@@ -66,11 +71,15 @@
             <p>Autore: {{ interest.author }}</p>
             <p>Descrizione: {{ interest.description }}</p>
           </div>
-          <div class="interest-actions">
-            <button (click)="editInterest(i)">Modifica</button>
-            <button (click)="deleteInterest(i)">Elimina</button>
-            <button (click)="moveInterestUp(i)" [disabled]="i === 0">Su</button>
-            <button (click)="moveInterestDown(i)" [disabled]="i === books.length - 1">Giù</button>
+          <div class="book-actions">
+            <div class="action-buttons">
+              <button (click)="editBook(i)">Modifica</button>
+              <button (click)="deleteBook(i)">Elimina</button>
+            </div>
+            <div class="arrow-buttons">
+              <button class="arrow-button" (click)="moveBookUp(i)" [disabled]="i === 0">🔼</button>
+              <button class="arrow-button" (click)="moveBookDown(i)" [disabled]="i === books.length - 1">🔽</button>
+            </div>
           </div>
         </li>
       </ul>
@@ -79,47 +88,49 @@
       <!-- Modulo per aggiungere o modificare un interesse -->
       <div *ngIf="currentInterest" class="interest-form">
         <h3>{{ currentInterestIndex !== null ? 'Modifica Libro Cercato' : 'Aggiungi Libro Cercato' }}</h3>
-        <label>
-          Titolo:
-          <input [(ngModel)]="currentInterest.title" placeholder="Titolo" />
-        </label>
-        <label>
-          Autore:
-          <input [(ngModel)]="currentInterest.author" placeholder="Autore" />
-        </label>
-        <label>
-          Descrizione:
-          <textarea [(ngModel)]="currentInterest.description" placeholder="Descrizione"></textarea>
-        </label>
-        <div class="form-buttons">
-          <button (click)="saveInterest()">Salva</button>
-          <button (click)="resetInterestForm()">Annulla</button>
-        </div>
+      <label>
+        Titolo:
+        <input [(ngModel)]="currentInterest.title" placeholder="Titolo" />
+      </label>
+      <label>
+        Autore:
+        <input [(ngModel)]="currentInterest.author" placeholder="Autore" />
+      </label>
+      <label>
+        Descrizione:
+        <textarea [(ngModel)]="currentInterest.description" placeholder="Descrizione"></textarea>
+      </label>
+      <div class="form-buttons">
+        <button (click)="saveInterest()">Salva</button>
+        <button (click)="resetInterestForm()">Annulla</button>
       </div>
+    </div>
+  </div>
 
 
-      <div class="requests-section">
-        <h2>Richieste di Libri</h2>
+  <div class="requests-section">
+    <h2>Richieste di Libri</h2>
 
-        <!-- Richieste Inviate -->
-        <div class="requests-sent">
-          <h3>Richieste Inviate</h3>
-          <ul>
-            <li *ngFor="let request of requestsSent">
-              <p><strong>{{ request.bookTitle }}</strong> di {{ request.author }}</p>
-              <p>Stato: {{ request.status }}</p>
-            </li>
-          </ul>
-        </div>
+    <!-- Richieste Inviate -->
+    <div class="requests-sent">
+      <h3>Richieste Inviate</h3>
+      <ul>
+        <li *ngFor="let request of requestsSent">
+          <p><strong>{{ request.bookTitle }}</strong> di {{ request.author }}</p>
+          <p>Stato: {{ request.status }}</p>
+        </li>
+      </ul>
+    </div>
 
-        <!-- Richieste Ricevute -->
-        <div class="requests-received">
-          <h3>Richieste Ricevute</h3>
-          <ul>
-            <li *ngFor="let request of requestsReceived">
-              <p><strong>{{ request.bookTitle }}</strong> di {{ request.author }}</p>
-              <p>Stato: {{ request.status }}</p>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <!-- Richieste Ricevute -->
+    <div class="requests-received">
+      <h3>Richieste Ricevute</h3>
+        <ul>
+          <li *ngFor="let request of requestsReceived">
+            <p><strong>{{ request.bookTitle }}</strong> di {{ request.author }}</p>
+            <p>Stato: {{ request.status }}</p>
+          </li>
+        </ul>
+    </div>
+  </div>
+</div>

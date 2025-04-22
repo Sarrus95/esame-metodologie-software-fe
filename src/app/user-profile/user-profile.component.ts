@@ -3,7 +3,14 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
-import { BookRequest } from '../models/request.model';
+
+interface BookRequest {
+  bookTitle: string;
+  author: string;
+  type: 'sent' | 'received';
+  status: 'pending' | 'accepted';
+}
+
 
 interface Book {
   title: string;

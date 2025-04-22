@@ -41,7 +41,7 @@ ul {
 
 .profile-bio {
     font-size: 1.2em;
-    margin: 10px 0;
+    margin: 10px 40px;
 }
 
 /* Books List Section */
@@ -185,4 +185,37 @@ h3 {
 .book-actions button,
 .interest-actions button {
     cursor: pointer;
+}
+.book-actions {
+    display: flex;
+    gap: 20px;
+    /* Spazio tra colonne */
+}
+
+.action-buttons,
+.arrow-buttons {
+    display: flex;
+    flex-direction: column;
+    /* Disposizione verticale */
+    align-items: center;
+}
+
+button {
+    margin-bottom: 5px;
+    /* Spazio tra i pulsanti */
+}
+
+.arrow-button {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    background-color: #ddd;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+.arrow-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
