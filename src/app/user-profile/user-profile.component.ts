@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
-import { BookRequest } from '../models/request.model';
 import { NavbarComponent } from "../log/navbar/navbar.component";
 
 interface BookRequest {
