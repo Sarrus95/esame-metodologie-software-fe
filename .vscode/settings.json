@@ -4,6 +4,7 @@
         "services",
         "auth component",
         "localStorage",
-        "offers"
+        "offers",
+        "app.routes"
     ]
 }
