@@ -6,6 +6,13 @@ import { ChangeDetectorRef } from '@angular/core';
 import { BookRequest } from '../models/request.model';
 import { NavbarComponent } from "../log/navbar/navbar.component";
 
+interface BookRequest {
+  bookTitle: string;
+  author: string;
+  type: 'sent' | 'received';
+  status: 'pending' | 'accepted';
+}
+
 interface Book {
   title: string;
   author: string;
