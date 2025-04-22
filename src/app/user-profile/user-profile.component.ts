@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
-import { NavbarComponent } from "../log/navbar/navbar.component";
+import { NavbarComponent } from '../log/navbar/navbar.component';
+import { UserService } from '../services/user-service.service';
 
 interface BookRequest {
   bookTitle: string;
@@ -33,11 +34,11 @@ interface Interest {
   imports: [FormsModule, CommonModule, NavbarComponent],
 })
 export class UserProfileComponent implements OnInit {
-  userName: string = 'Mario Rossi';
-  userBio: string = 'Amante della lettura e degli scambi culturali.';
-  userPhoto: string =
+  username = '';
+  phoneNo = '';
+  userPhoto =
     'https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png';
-
+  allUserInfo = false;
   books: Book[] = [];
   interests: Interest[] = [];
   currentBook: Book | null = null;
@@ -49,10 +50,23 @@ export class UserProfileComponent implements OnInit {
   requestsSent: BookRequest[] = [];
   requestsReceived: BookRequest[] = [];
   i: number | undefined;
+  showModal: boolean = true; // Set this to true to show the modal on page load.
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef) { }
+  constructor(
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
+    this.userService.getInfo().subscribe((userData) => {
+      if (userData) {
+        this.username = userData.username;
+        this.phoneNo = userData.phoneNo;
+        this.allUserInfo = Boolean(this.username && this.phoneNo);
+        this.showModal = !this.allUserInfo;
+      }
+    });
     const savedBooks = localStorage.getItem('books');
     const savedInterests = localStorage.getItem('interests');
     const savedRequestsSent = localStorage.getItem('requestsSent');
@@ -63,6 +77,28 @@ export class UserProfileComponent implements OnInit {
     if (savedRequestsSent) this.requestsSent = JSON.parse(savedRequestsSent);
     if (savedRequestsReceived)
       this.requestsReceived = JSON.parse(savedRequestsReceived);
+  }
+
+  checkAuthentication(userData: any) {
+    if (userData.username && userData.phoneNo) {
+      this.allUserInfo = true;
+      this.showModal = false; // Close modal if user details are entered.
+    } else {
+      this.showModal = true; // Keep modal open otherwise.
+    }
+  }
+
+  saveUserInfo() {
+    if (this.username && this.phoneNo) {
+      this.allUserInfo = true;
+      this.showModal = false;
+    } else {
+      alert('Per favore, compila tutti i campi.');
+    }
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 
   addNewBook() {

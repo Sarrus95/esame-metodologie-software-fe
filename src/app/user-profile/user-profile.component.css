@@ -1,176 +1,175 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 0;
-    color: #333;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+  color: #333;
 }
 
 h1,
 h2,
 h3 {
-    color: #2c3e50;
+  color: #2c3e50;
 }
 
 a {
-    text-decoration: none;
-    color: #3498db;
+  text-decoration: none;
+  color: #3498db;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 /* Profile Section */
 .profile-header {
-    display: flex;
-    align-items: center;
-    margin: 20px;
-    border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  margin: 20px;
+  border-bottom: 1px solid #ddd;
 }
 
 .profile-photo {
-    border-radius: 50%;
-    margin-right: 20px;
-    width: 100px;
-    height: 100px;
+  border-radius: 50%;
+  margin-right: 20px;
+  width: 100px;
+  height: 100px;
 }
 
 .profile-bio {
-    font-size: 1.2em;
-    margin: 10px 40px;
+  font-size: 1.2em;
+  margin: 10px 40px;
 }
 
 /* Books List Section */
 .books-list,
 .interests-list,
 .requests-section {
-    margin: 20px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .book-item,
 .interest-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 10px 0;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
 .book-image {
-    width: 80px;
-    height: 120px;
-    margin-right: 20px;
-    border-radius: 4px;
+  width: 80px;
+  height: 120px;
+  margin-right: 20px;
+  border-radius: 4px;
 }
 
 .book-details,
 .interest-details {
-    flex: 1;
+  flex: 1;
 }
 
 .book-actions,
 .interest-actions {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #3498db;
-    color: #fff;
-    cursor: pointer;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }
 
 /* Forms */
 .book-form,
 .interest-form {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #ecf0f1;
-    border-radius: 8px;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #ecf0f1;
+  border-radius: 8px;
 }
 
 label {
-    display: block;
-    margin: 10px 0;
+  display: block;
+  margin: 10px 0;
 }
 
 input,
 textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 input:focus,
 textarea:focus {
-    border-color: #3498db;
+  border-color: #3498db;
 }
 
 .form-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 /* Requests Section */
 .requests-section {
-    background-color: #fdfefe;
+  background-color: #fdfefe;
 }
 
 .requests-sent,
 .requests-received {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 .requests-sent h3,
 .requests-received h3 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+  font-size: 1.2em;
+  margin-bottom: 10px;
 }
 
 .requests-sent ul li,
 .requests-received ul li {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
 }
 
 /* Responsiveness */
 @media (max-width: 768px) {
+  .book-item,
+  .interest-item {
+    flex-wrap: wrap;
+  }
 
-    .book-item,
-    .interest-item {
-        flex-wrap: wrap;
-    }
-
-    .book-image {
-        margin-bottom: 10px;
-    }
+  .book-image {
+    margin-bottom: 10px;
+  }
 }
 
 /* Aggiungi questa regola per il cursore */
@@ -178,44 +177,94 @@ button,
 a,
 .book-image,
 h3 {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* Facoltativo: puoi aggiungerlo alle azioni cliccabili personalizzate */
 .book-actions button,
 .interest-actions button {
-    cursor: pointer;
+  cursor: pointer;
 }
 .book-actions {
-    display: flex;
-    gap: 20px;
-    /* Spazio tra colonne */
+  display: flex;
+  gap: 20px;
+  /* Spazio tra colonne */
 }
 
 .action-buttons,
 .arrow-buttons {
-    display: flex;
-    flex-direction: column;
-    /* Disposizione verticale */
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  /* Disposizione verticale */
+  align-items: center;
 }
 
 button {
-    margin-bottom: 5px;
-    /* Spazio tra i pulsanti */
+  margin-bottom: 5px;
+  /* Spazio tra i pulsanti */
 }
 
 .arrow-button {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-    background-color: #ddd;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  background-color: #ddd;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
 }
 
 .arrow-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:disabled {
+  background-color: #b0b0b0; /* Gray background */
+  color: #666; /* Dimmed text color */
+  cursor: not-allowed;
+  opacity: 0.6;
+  border: 1px solid #ccc;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: #fff;
+}
+
+.modal-buttons button:hover {
+  background-color: #2980b9;
 }

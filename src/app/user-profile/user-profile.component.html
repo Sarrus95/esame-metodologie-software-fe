@@ -4,9 +4,8 @@
   <!-- Profilo Utente -->
   <div class="profile-header">
     <img [src]="userPhoto" alt="Foto profilo" class="profile-photo" />
-    <h1>{{ userName }}</h1>
+    <h1>{{ username }}</h1>
   </div>
-  <p class="profile-bio">{{ userBio }}</p>
 
 
   <!-- Lista dei Libri Posseduti -->
@@ -33,7 +32,7 @@
         </div>
       </li>
     </ul>
-    <button (click)="addNewBook()">Aggiungi Nuovo Libro</button>
+    <button [disabled]="!allUserInfo" (click)="addNewBook()">Aggiungi Nuovo Libro</button>
 
     <!-- Modulo per aggiungere o modificare un libro -->
     <div *ngIf="currentBook" class="book-form">
@@ -85,7 +84,7 @@
           </div>
         </li>
       </ul>
-      <button (click)="addNewInterest()">Aggiungi Nuovo Interesse</button>
+      <button [disabled]="!allUserInfo" (click)="addNewInterest()">Aggiungi Nuovo Interesse</button>
 
       <!-- Modulo per aggiungere o modificare un interesse -->
       <div *ngIf="currentInterest" class="interest-form">
@@ -133,6 +132,23 @@
             <p>Stato: {{ request.status }}</p>
           </li>
         </ul>
+    </div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <h2>Inserisci Dettagli Utente</h2>
+    <label>
+      Nome Utente:
+      <input [(ngModel)]="username" placeholder="Inserisci il nome utente" />
+    </label>
+    <label>
+      Numero di Telefono:
+      <input [(ngModel)]="phoneNo" placeholder="Inserisci il numero di telefono" />
+    </label>
+    <div class="modal-buttons">
+      <button (click)="saveUserInfo()">Salva</button>
     </div>
   </div>
 </div>

@@ -15,7 +15,7 @@ export const routes: Routes = [
   { path: 'login', component: AuthComponent },
   { path: 'register', component: FormRecordComponent },
   { path: 'home', component: OffersComponent },
-  { path: 'profilo', component: UserProfileComponent },
+  { path: 'profilo/:id', component: UserProfileComponent },
   { path: 'book-details/:id', component: BookDetailsComponent },
   { path: 'scambio', component: ExchangeRequestsComponent },
   { path: 'profile', component: UserProfileComponent },
@@ -27,5 +27,5 @@ export const routes: Routes = [
 })
 export class AppRoutingModule {}
 export type { Routes };
-  
-  export const appRouter = provideRouter(routes);
+
+export const appRouter = provideRouter(routes);

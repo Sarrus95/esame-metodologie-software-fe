@@ -10,22 +10,22 @@
     <h2>Accedi</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div>
-        <label for="username">Username</label>
+        <label for="email">Email</label>
         <input
-          formControlName="username"
-          id="username"
+          formControlName="email"
+          id="email"
           type="text"
-          placeholder="Inserisci username"
+          placeholder="Inserisci email"
           required
         />
         <div
           class="error-label"
           *ngIf="
-            loginForm.controls['username'].touched &&
-            loginForm.controls['username'].hasError('required')
+            loginForm.controls['email'].touched &&
+            loginForm.controls['email'].hasError('required')
           "
         >
-          USERNAME IS REQUIRED
+          EMAIL IS REQUIRED
         </div>
       </div>
       <div>

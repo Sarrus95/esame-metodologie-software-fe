@@ -1,87 +1,53 @@
 <app-navbar></app-navbar>
-<!-- offers.component.html -->
-<div class="offers-page">
 
-  <!-- Wrapper per mantenere filters a sinistra e search a destra -->
-  <div class="top-bar">
-    <section class="filters">
-      <!-- Filtro per genere -->
-      <section class="filters">
-        <select
-          id="genre"
-          [(ngModel)]="selectedGenre"
-          (change)="applyFilters()"
-        >
-          <option value="">GENERE</option>
-          <option *ngFor="let genre of genres" [value]="genre.name">
-            <span [innerHTML]="genre.icon"></span> {{ genre.name }}
-          </option>
-        </select>
-      </section>
+<div class="container my-4">
+  <!-- Filters Section (Top) -->
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-3">
+      <select id="genre" class="form-select" [(ngModel)]="selectedGenre" (change)="applyFilters()">
+        <option value="">GENERE</option>
+        <option *ngFor="let genre of genres" [value]="genre.name">
+          <span [innerHTML]="genre.icon"></span> {{ genre.name }}
+        </option>
+      </select>
+    </div>
 
-      <!-- Filtro per condizione -->
-      <section class="filters">
-        <select
-          id="condition"
-          [(ngModel)]="selectedCondition"
-          (change)="applyFilters()"
-        >
-          <option value="">CONDIZIONI</option>
-          <option *ngFor="let condition of conditions" [value]="condition.name">
-            <span [innerHTML]="condition.icon"></span> {{ condition.name }}
-          </option>
-        </select>
-      </section>
+    <div class="col-md-3">
+      <select id="condition" class="form-select" [(ngModel)]="selectedCondition" (change)="applyFilters()">
+        <option value="">CONDIZIONE</option>
+        <option *ngFor="let condition of conditions" [value]="condition.name">
+          <span [innerHTML]="condition.icon"></span> {{ condition.name }}
+        </option>
+      </select>
+    </div>
 
-      <section class="filters">
-        <select
-          id="language"
-          [(ngModel)]="selectedLanguage"
-          (change)="applyFilters()"
-        >
-          <option value="">LINGUA</option>
-          <option *ngFor="let language of languages" [value]="language.name">
-            <span [innerHTML]="language.icon"></span> {{ language.name }}
-          </option>
-        </select>
-      </section>
-    </section>
-
-    <!-- Opzioni di visualizzazione -->
-    <section class="search">
-      <div class="view-toggle">
-        <button
-          (click)="changeView('grid')"
-          [class.active]="viewMode === 'grid'"
-        >
-          Griglia
-        </button>
-        <button
-          (click)="changeView('list')"
-          [class.active]="viewMode === 'list'"
-        >
-          Lista
-        </button>
-      </div>
-    </section>
+    <div class="col-md-3">
+      <select id="language" class="form-select" [(ngModel)]="selectedLanguage" (change)="applyFilters()">
+        <option value="">LINGUA</option>
+        <option *ngFor="let language of languages" [value]="language.name">
+          <span [innerHTML]="language.icon"></span> {{ language.name }}
+        </option>
+      </select>
+    </div>
   </div>
 
-  <!-- Lista Libri -->
-  <section class="book-list" [ngClass]="viewMode + '-view'">
-    <div *ngIf="filteredBooks.length > 0">
-      <div *ngFor="let book of filteredBooks" class="book-item">
-        <img [src]="book.coverImg" alt="Copertina libro" />
-        <div class="book-info">
-          <h3>{{ book.title }}</h3>
-          <p>{{ book.author }}</p>
-          <p>{{ book.genre }}</p>
-          <p>{{ book.condition }}</p>
-          <!-- Mostriamo la condizione del libro -->
+  <!-- Book List (Below Filters) -->
+  <div *ngIf="filteredBooks.length > 0" class="row g-3">
+    <div *ngFor="let book of filteredBooks" class="col-md-3">
+      <div class="card shadow-sm">
+        <img [src]="book.coverImg" class="card-img-top" alt="Copertina libro">
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ book.title }}</h5>
+          <p class="card-text">{{ book.author }}</p>
+          <p class="badge bg-secondary">{{ book.genre }}</p>
+          <p class="badge bg-success">{{ book.condition }}</p>
         </div>
       </div>
     </div>
-    <div *ngIf="filteredBooks.length === 0" class="no-books-message">
-      <p>Nessun Libro Trovato</p>
-    </div>
-  </section>
+  </div>
+
+  <!-- No Books Found Message -->
+  <div *ngIf="filteredBooks.length === 0" class="alert alert-warning text-center mt-3">
+    Nessun Libro Trovato
+  </div>
 </div>
