@@ -7,6 +7,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { OffersComponent } from './offers/offers.component';
 import { ExchangeRequestsComponent } from './exchange-requests/exchange-requests.component';
 
+import { provideRouter } from '@angular/router';
+
 export const routes: Routes = [
   // Definisci le tue rotte qui
   { path: '', pathMatch: 'full', component: AuthComponent },
@@ -16,6 +18,7 @@ export const routes: Routes = [
   { path: 'profilo', component: UserProfileComponent },
   { path: 'book-details/:id', component: BookDetailsComponent },
   { path: 'scambio', component: ExchangeRequestsComponent },
+  { path: 'profile', component: UserProfileComponent },
 ];
 
 @NgModule({
@@ -24,3 +27,5 @@ export const routes: Routes = [
 })
 export class AppRoutingModule {}
 export type { Routes };
+  
+  export const appRouter = provideRouter(routes);
