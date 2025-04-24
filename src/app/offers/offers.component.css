@@ -62,20 +62,6 @@ hr {
   border-radius: 5px;
 }
 
-/* Griglia di libri */
-.book-list {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.grid-view {
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-}
-
-.list-view {
-  display: block;
-}
-
 .book-item {
   border: 1px solid #ccc;
   border-radius: 8px;

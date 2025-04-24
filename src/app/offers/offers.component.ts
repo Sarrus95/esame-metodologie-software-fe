@@ -21,6 +21,7 @@ export class OffersComponent {
   filteredBooks: any[] = [];
   showAllBooks = true;
 
+
   // Lista dei generi con le relative icone (solo visuale, non per backend)
   genres = [
     { name: 'Fantasy', icon: '🧙‍♂️' },
@@ -54,28 +55,66 @@ export class OffersComponent {
   ];
 
   languages = [
-    {name: "Italiano", icon: '🇮🇹​'},
-    {name: "Inglese", icon: '🇬🇧​'},
-    {name: "Francese", icon: '🇨🇵​'},
-    {name: "Tedesco", icon: '🇩🇪​'},
-    {name: "Spagnolo", icon: '🇪🇸​'},
+    { name: "Italiano", icon: '🇮🇹​' },
+    { name: "Inglese", icon: '🇬🇧​' },
+    { name: "Francese", icon: '🇨🇵​' },
+    { name: "Tedesco", icon: '🇩🇪​' },
+    { name: "Spagnolo", icon: '🇪🇸​' },
   ]
 
   constructor(
     private bookService: BookService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.selectedGenre = params['genre'] || '';
       this.selectedCondition = params['condition'] || '';
       this.selectedLanguage = params['language'] || '';
-
-      this.applyFilters(); // Apply filters based on query parameters
+      this.applyFilters();
     });
 
+    // Dati di test
+    this.listBooks = [
+      {
+        title: 'Il Signore degli Anelli',
+        author: 'J.R.R. Tolkien',
+        genre: 'Fantasy',
+        condition: 'Nuovo',
+        coverImg: 'https://via.placeholder.com/150x200?text=LOTR',
+      },
+      {
+        title: '1984',
+        author: 'George Orwell',
+        genre: 'Distopico',
+        condition: 'Discreto',
+        coverImg: 'https://via.placeholder.com/150x200?text=1984',
+      },
+      {
+        title: 'Orgoglio e Pregiudizio',
+        author: 'Jane Austen',
+        genre: 'Classico',
+        condition: 'Semi-Nuovo',
+        coverImg: 'https://via.placeholder.com/150x200?text=O+P',
+      },
+      {
+        title: 'Dracula',
+        author: 'Bram Stoker',
+        genre: 'Horror',
+        condition: 'Rovinato',
+        coverImg: 'https://via.placeholder.com/150x200?text=Dracula',
+      },
+      {
+        title: 'Harry Potter',
+        author: 'J.K. Rowling',
+        genre: 'Fantasy',
+        condition: 'Nuovo',
+        coverImg: 'https://via.placeholder.com/150x200?text=HP',
+      },
+    ];
+    this.filteredBooks = this.listBooks;
     this.bookService.getBooks().subscribe((data) => {
       this.listBooks = [...data];
       if (this.filteredBooks.length === 0) {
@@ -83,6 +122,7 @@ export class OffersComponent {
       }
     });
   }
+
 
   // Cambia la modalità di visualizzazione
   changeView(mode: 'grid' | 'list') {
@@ -103,7 +143,7 @@ export class OffersComponent {
       queryParamsHandling: 'merge', // Merges with existing query parameters
     });
 
-    const receivedFilters = [this.selectedGenre, this.selectedCondition,this.selectedLanguage];
+    const receivedFilters = [this.selectedGenre, this.selectedCondition, this.selectedLanguage];
     if (receivedFilters.some((filter) => filter.length > 0)) {
       const filters = {
         genre: this.selectedGenre,
