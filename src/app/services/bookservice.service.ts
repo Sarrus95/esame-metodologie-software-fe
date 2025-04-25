@@ -31,4 +31,9 @@ export class BookService {
 
     return this.http.get(`${this.API_URL}/`, { headers, params });
   }
+
+  addBook(newBook: any): Observable<any> {
+    const headers = { Authorization: this.loginAuthToken };
+    return this.http.post(`${this.API_URL}/add-book`, newBook, { headers, responseType: "text" });
+  }
 }

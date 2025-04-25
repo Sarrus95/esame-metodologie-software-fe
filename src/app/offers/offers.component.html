@@ -7,11 +7,7 @@
     <section class="filters">
       <!-- Filtro per genere -->
       <section class="filters">
-        <select
-          id="genre"
-          [(ngModel)]="selectedGenre"
-          (change)="applyFilters()"
-        >
+        <select id="genre" [(ngModel)]="selectedGenre" (change)="applyFilters()">
           <option value="">GENERE</option>
           <option *ngFor="let genre of genres" [value]="genre.name">
             <span [innerHTML]="genre.icon"></span> {{ genre.name }}
@@ -21,11 +17,7 @@
 
       <!-- Filtro per condizione -->
       <section class="filters">
-        <select
-          id="condition"
-          [(ngModel)]="selectedCondition"
-          (change)="applyFilters()"
-        >
+        <select id="condition" [(ngModel)]="selectedCondition" (change)="applyFilters()">
           <option value="">CONDIZIONI</option>
           <option *ngFor="let condition of conditions" [value]="condition.name">
             <span [innerHTML]="condition.icon"></span> {{ condition.name }}
@@ -34,11 +26,7 @@
       </section>
 
       <section class="filters">
-        <select
-          id="language"
-          [(ngModel)]="selectedLanguage"
-          (change)="applyFilters()"
-        >
+        <select id="language" [(ngModel)]="selectedLanguage" (change)="applyFilters()">
           <option value="">LINGUA</option>
           <option *ngFor="let language of languages" [value]="language.name">
             <span [innerHTML]="language.icon"></span> {{ language.name }}
@@ -50,16 +38,10 @@
     <!-- Opzioni di visualizzazione -->
     <section class="search">
       <div class="view-toggle">
-        <button
-          (click)="changeView('grid')"
-          [class.active]="viewMode === 'grid'"
-        >
+        <button (click)="changeView('grid')" [class.active]="viewMode === 'grid'">
           Griglia
         </button>
-        <button
-          (click)="changeView('list')"
-          [class.active]="viewMode === 'list'"
-        >
+        <button (click)="changeView('list')" [class.active]="viewMode === 'list'">
           Lista
         </button>
       </div>
@@ -67,21 +49,23 @@
   </div>
 
   <!-- Lista Libri -->
-  <section class="book-list" [ngClass]="viewMode + '-view'">
-    <div *ngIf="filteredBooks.length > 0">
-      <div *ngFor="let book of filteredBooks" class="book-item">
-        <img [src]="book.coverImg" alt="Copertina libro" />
-        <div class="book-info">
-          <h3>{{ book.title }}</h3>
-          <p>{{ book.author }}</p>
-          <p>{{ book.genre }}</p>
-          <p>{{ book.condition }}</p>
-          <!-- Mostriamo la condizione del libro -->
+  <section class="book-list container">
+    <div *ngIf="filteredBooks.length > 0" class="row">
+      <div *ngFor="let book of filteredBooks" [ngClass]="viewMode === 'grid' ? 'col-md-4 mb-4' : 'col-12 mb-3'">
+        <div class="card h-100 flex-row" [ngClass]="viewMode === 'grid' ? '' : 'flex-row align-items-center p-2'">
+          <img [src]="book.coverImg" alt="Copertina libro" class="img-fluid"
+            [ngClass]="viewMode === 'grid' ? 'card-img-top' : 'w-25 me-3'" (click)="showBookDetails(book)" />
+          <div class="card-body" [ngClass]="viewMode === 'grid' ? '' : 'p-0'">
+            <h5 class="card-title">{{ book.title }}</h5>
+            <p class="card-text mb-1">{{ book.author }}</p>
+            <p class="card-text mb-1">{{ book.genre }}</p>
+            <p class="book-condition">{{ book.condition }}</p>
+          </div>
         </div>
       </div>
     </div>
-    <div *ngIf="filteredBooks.length === 0" class="no-books-message">
-      <p>Nessun Libro Trovato</p>
+
+    <div *ngIf="filteredBooks.length === 0" class="no-books-message text-center py-5">
+      <p class="text-muted">Nessun Libro Trovato</p>
     </div>
   </section>
-</div>

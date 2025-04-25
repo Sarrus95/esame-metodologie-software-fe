@@ -28,7 +28,7 @@ export class AuthComponent {
     private localStorage: LocalStorageService
   ) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', [Validators.required,Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
@@ -38,7 +38,8 @@ export class AuthComponent {
       this.attemptLogin = true;
       this.userService.login(this.loginForm.value).subscribe({
         next: (response) => {
-          this.localStorage.set("loginAuthToken",response.loginAuthToken)
+          this.localStorage.set("loginAuthToken",response.loginAuthToken);
+          this.localStorage.set("userId",response.userId);
           this.router.navigate(['/home']);
         },
         error: (error) => {

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../log/navbar/navbar.component';
 import { BookService } from '../services/bookservice.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-offers',
@@ -20,6 +21,12 @@ export class OffersComponent {
   listBooks: any[] = [];
   filteredBooks: any[] = [];
   showAllBooks = true;
+  previousFilters: {
+    genre: string | null;
+    condition: string | null;
+    language: string | null;
+  } = { genre: null, condition: null, language: null };
+  searchQuery: string = '';
 
   // Lista dei generi con le relative icone (solo visuale, non per backend)
   genres = [
@@ -48,38 +55,40 @@ export class OffersComponent {
   // Lista delle condizioni dei libri con relative icone
   conditions = [
     { name: 'Nuovo', icon: '🆕' },
-    { name: 'Semi-Nuovo', icon: '✨' },
-    { name: 'Discreto', icon: '📚' },
+    { name: 'Come Nuovo', icon: '✨' },
+    { name: 'Buone Conidizoni', icon: '📚' },
     { name: 'Rovinato', icon: '🛠️' },
   ];
 
   languages = [
-    {name: "Italiano", icon: '🇮🇹​'},
-    {name: "Inglese", icon: '🇬🇧​'},
-    {name: "Francese", icon: '🇨🇵​'},
-    {name: "Tedesco", icon: '🇩🇪​'},
-    {name: "Spagnolo", icon: '🇪🇸​'},
-  ]
+    { name: 'Italiano', icon: '🇮🇹​' },
+    { name: 'Inglese', icon: '🇬🇧​' },
+    { name: 'Francese', icon: '🇨🇵​' },
+    { name: 'Tedesco', icon: '🇩🇪​' },
+    { name: 'Spagnolo', icon: '🇪🇸​' },
+  ];
 
   constructor(
+    private localStorage: LocalStorageService,
     private bookService: BookService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
-      this.selectedGenre = params['genre'] || '';
-      this.selectedCondition = params['condition'] || '';
-      this.selectedLanguage = params['language'] || '';
-
-      this.applyFilters(); // Apply filters based on query parameters
-    });
-
     this.bookService.getBooks().subscribe((data) => {
       this.listBooks = [...data];
-      if (this.filteredBooks.length === 0) {
-        this.filteredBooks = this.listBooks;
+      this.filteredBooks = this.listBooks;
+    });
+
+    this.route.queryParams.subscribe((params) => {
+      if (Object.keys(params).length > 0) {
+        this.selectedGenre = params['genre'] || '';
+        this.selectedCondition = params['condition'] || '';
+        this.selectedLanguage = params['language'] || '';
+        this.searchQuery = params['search'] || '';
+
+        this.applyFilters();
       }
     });
   }
@@ -91,32 +100,39 @@ export class OffersComponent {
 
   // Applicazione dei filtri
   applyFilters() {
-    const queryParams = {
+    const newFilters = {
       genre: this.selectedGenre || null,
       condition: this.selectedCondition || null,
       language: this.selectedLanguage || null,
+      search: this.searchQuery || null,
     };
 
     this.router.navigate([], {
-      relativeTo: this.route, // Keeps the base URL intact
-      queryParams: queryParams,
-      queryParamsHandling: 'merge', // Merges with existing query parameters
+      relativeTo: this.route,
+      queryParams: newFilters,
+      queryParamsHandling: 'merge',
     });
 
-    const receivedFilters = [this.selectedGenre, this.selectedCondition,this.selectedLanguage];
-    if (receivedFilters.some((filter) => filter.length > 0)) {
-      const filters = {
-        genre: this.selectedGenre,
-        condition: this.selectedCondition,
-        language: this.selectedLanguage
-      }
-      this.bookService
-        .getFilteredBooks(filters)
-        .subscribe((data) => {
-          this.filteredBooks = [...data];
-        });
-    } else {
-      this.filteredBooks = this.listBooks;
+    if (JSON.stringify(newFilters) !== JSON.stringify(this.previousFilters)) {
+      this.previousFilters = { ...newFilters };
+      this.bookService.getFilteredBooks(newFilters).subscribe((data) => {
+        this.filteredBooks = [...data];
+
+        if (this.searchQuery.trim()) {
+          this.filteredBooks = this.filteredBooks.filter(
+            (book) =>
+              book.title
+                .toLowerCase()
+                .includes(this.searchQuery.toLowerCase()) ||
+              book.author.toLowerCase().includes(this.searchQuery.toLowerCase())
+          );
+        }
+      });
     }
+  }
+
+  showBookDetails(book: any) {
+    this.localStorage.set('currentBook', JSON.stringify(book));
+    this.router.navigate(['book-details', book._id]);
   }
 }

@@ -4,19 +4,22 @@
   <!-- Profilo Utente -->
   <div class="profile-header">
     <img [src]="userPhoto" alt="Foto profilo" class="profile-photo" />
-    <h1>{{ userName }}</h1>
+    <h1>{{ username }}</h1>
   </div>
-  <p class="profile-bio">{{ userBio }}</p>
-
 
   <!-- Lista dei Libri Posseduti -->
   <div class="books-list">
-    <h2>Libri Posseduti</h2>
+    <h2>Libri In Scambio</h2>
     <ul>
-      <li *ngFor="let book of books; let i = index" class="book-item">
-        <img [src]="book.image" [alt]="book.title" class="book-image" (click)="navigateToDetails(i)" />
+      <li *ngFor="let book of myBooks; let i = index" class="book-item">
+        <img
+          [src]="book.coverImg"
+          [alt]="book.title"
+          class="book-image"
+          (click)="showBookDetails(book)"
+        />
         <div class="book-details">
-          <h3 (click)="navigateToDetails(i)">{{ book.title }}</h3>
+          <h3 (click)="showBookDetails(book)">{{ book.title }}</h3>
           <p>Autore: {{ book.author }}</p>
           <p>Descrizione: {{ book.description }}</p>
         </div>
@@ -27,8 +30,20 @@
             <button (click)="deleteBook(i)">Elimina</button>
           </div>
           <div class="arrow-buttons">
-            <button class="arrow-button" (click)="moveBookUp(i)" [disabled]="i === 0">🔼</button>
-            <button class="arrow-button" (click)="moveBookDown(i)" [disabled]="i === books.length - 1">🔽</button>
+            <button
+              class="arrow-button"
+              (click)="moveBookUp(i)"
+              [disabled]="i === 0"
+            >
+              🔼
+            </button>
+            <button
+              class="arrow-button"
+              (click)="moveBookDown(i)"
+              [disabled]="i === myBooks.length - 1"
+            >
+              🔽
+            </button>
           </div>
         </div>
       </li>
@@ -36,38 +51,113 @@
     <button (click)="addNewBook()">Aggiungi Nuovo Libro</button>
 
     <!-- Modulo per aggiungere o modificare un libro -->
-    <div *ngIf="currentBook" class="book-form">
-      <h2>{{ currentBookIndex !== null ? 'Modifica Libro' : 'Aggiungi Libro' }}</h2>
+    <form
+      *ngIf="showNewBookForm"
+      [formGroup]="newBookForm"
+      (ngSubmit)="saveBook()"
+      class="book-form"
+    >
       <label>
         Titolo:
-        <input [(ngModel)]="currentBook.title" placeholder="Titolo" />
+        <input formControlName="title" placeholder="Titolo" />
       </label>
+
       <label>
         Autore:
-        <input [(ngModel)]="currentBook.author" placeholder="Autore" />
+        <input formControlName="author" placeholder="Autore" />
       </label>
-      <label>
-        Descrizione:
-        <textarea [(ngModel)]="currentBook.description" placeholder="Descrizione"></textarea>
-      </label>
+
       <label>
         Immagine URL:
-        <input [(ngModel)]="currentBook.image" placeholder="URL Immagine" />
+        <input formControlName="coverImg" placeholder="URL Immagine" />
       </label>
+
+      <label>
+        Anno Di Stampa:
+        <input
+          formControlName="printYear"
+          type="number"
+          placeholder="Anno Di Stampa"
+        />
+      </label>
+
+      <label>
+        Casa Editrice:
+        <input formControlName="printCompany" placeholder="Casa Editrice" />
+      </label>
+
+      <label>
+        Genere:
+        <select formControlName="genre">
+          <option value="Fantasy">Fantasy</option>
+          <option value="Thriller">Thriller</option>
+          <option value="Romance">Romance</option>
+          <option value="Azione">Azione</option>
+          <option value="Avventura">Avventura</option>
+          <option value="Fantascienza">Fantascienza</option>
+          <option value="Horror">Horror</option>
+          <option value="Epica">Epica</option>
+          <option value="Classico">Classico</option>
+          <option value="Storico">Storico</option>
+          <option value="Biografia">Biografia</option>
+          <option value="Mistero">Mistero</option>
+          <option value="Commedia">Commedia</option>
+          <option value="Drammatico">Drammatico</option>
+          <option value="Giallo">Giallo</option>
+          <option value="Distopico">Distopico</option>
+          <option value="Spirituale">Spirituale</option>
+          <option value="Avventura urbana">Avventura Urbana</option>
+          <option value="Saggio">Saggio</option>
+          <option value="Narrativa contemporanea">
+            Narrativa Contemporanea
+          </option>
+        </select>
+      </label>
+
+      <label>
+        Lingua:
+        <select formControlName="language">
+          <option value="Italiano">Italiano</option>
+          <option value="Inglese">Inglese</option>
+          <option value="Spagnolo">Spagnolo</option>
+          <option value="Francese">Francese</option>
+        </select>
+      </label>
+
+      <label>
+        Condizione:
+        <select formControlName="condition">
+          <option value="Nuovo">Nuovo</option>
+          <option value="Come Nuovo">Come Nuovo</option>
+          <option value="Buone Condizioni">Buone Condizioni</option>
+          <option value="Vecchio">Vecchio</option>
+        </select>
+      </label>
+
+      <label>
+        Descrizione:
+        <textarea
+          formControlName="description"
+          placeholder="Descrizione"
+        ></textarea>
+      </label>
+
       <div class="form-buttons">
-        <button (click)="saveBook()">Salva</button>
-        <button (click)="resetForm()">Annulla</button>
+        <button type="submit">Salva</button>
+        <button type="button" (click)="resetForm(newBookForm, 'book')">
+          Annulla
+        </button>
       </div>
-    </div>
-  </div>
-
-
+    </form>
 
     <!-- Sezione Libri Cercati -->
-  <div class="interests-list">
-    <h2>Libri Cercati</h2>
+    <div class="interests-list">
+      <h2>Libri Cercati</h2>
       <ul>
-        <li *ngFor="let interest of interests; let i = index" class="interest-item">
+        <li
+          *ngFor="let interest of booksOfInterest; let i = index"
+          class="interest-item"
+        >
           <div class="interest-details">
             <h3>{{ interest.title }}</h3>
             <p>Autore: {{ interest.author }}</p>
@@ -79,60 +169,122 @@
               <button (click)="deleteBook(i)">Elimina</button>
             </div>
             <div class="arrow-buttons">
-              <button class="arrow-button" (click)="moveBookUp(i)" [disabled]="i === 0">🔼</button>
-              <button class="arrow-button" (click)="moveBookDown(i)" [disabled]="i === books.length - 1">🔽</button>
+              <button
+                class="arrow-button"
+                (click)="moveBookUp(i)"
+                [disabled]="i === 0"
+              >
+                🔼
+              </button>
+              <button
+                class="arrow-button"
+                (click)="moveBookDown(i)"
+                [disabled]="i === myBooks.length - 1"
+              >
+                🔽
+              </button>
             </div>
           </div>
         </li>
       </ul>
-      <button (click)="addNewInterest()">Aggiungi Nuovo Interesse</button>
+      <button (click)="addNewBookOfInterest()">Aggiungi Nuovo Interesse</button>
 
       <!-- Modulo per aggiungere o modificare un interesse -->
-      <div *ngIf="currentInterest" class="interest-form">
-        <h3>{{ currentInterestIndex !== null ? 'Modifica Libro Cercato' : 'Aggiungi Libro Cercato' }}</h3>
-      <label>
-        Titolo:
-        <input [(ngModel)]="currentInterest.title" placeholder="Titolo" />
-      </label>
-      <label>
-        Autore:
-        <input [(ngModel)]="currentInterest.author" placeholder="Autore" />
-      </label>
-      <label>
-        Descrizione:
-        <textarea [(ngModel)]="currentInterest.description" placeholder="Descrizione"></textarea>
-      </label>
-      <div class="form-buttons">
-        <button (click)="saveInterest()">Salva</button>
-        <button (click)="resetInterestForm()">Annulla</button>
+      <form
+        *ngIf="showNewBookOfInterestForm"
+        [formGroup]="newBookOfInterestForm"
+        (ngSubmit)="saveBookOfInterest()"
+        class="interest-form"
+      >
+        <label>
+          Titolo:
+          <input formControlName="title" placeholder="Titolo" />
+        </label>
+        <label>
+          Autore:
+          <input formControlName="author" placeholder="Autore" />
+        </label>
+        <label>
+          Anno Di Stampa:
+          <input formControlName="printYear" placeholder="Autore" />
+        </label>
+        <label>
+          Casa Editrice:
+          <input formControlName="printCompany" placeholder="Autore" />
+        </label>
+        <label>
+          Lingua:
+          <select formControlName="language">
+            <option value="Italiano">Italiano</option>
+            <option value="Inglese">Inglese</option>
+            <option value="Spagnolo">Spagnolo</option>
+            <option value="Francese">Francese</option>
+          </select>
+        </label>
+        <label>
+          Descrizione:
+          <textarea
+            formControlName="description"
+            placeholder="Descrizione"
+          ></textarea>
+        </label>
+        <div class="form-buttons">
+          <button type="submit">Salva</button>
+          <button (click)="resetForm(newBookOfInterestForm, 'interest')">
+            Annulla
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="requests-section">
+      <h2>Richieste di Libri</h2>
+
+      <!-- Richieste Inviate -->
+      <div class="requests-sent">
+        <h3>Richieste Inviate</h3>
+        <ul>
+          <li *ngFor="let request of requestsSent">
+            <p>
+              <strong>{{ request.bookTitle }}</strong> di {{ request.author }}
+            </p>
+            <p>Stato: {{ request.status }}</p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Richieste Ricevute -->
+      <div class="requests-received">
+        <h3>Richieste Ricevute</h3>
+        <ul>
+          <li *ngFor="let request of requestsReceived">
+            <p>
+              <strong>{{ request.bookTitle }}</strong> di {{ request.author }}
+            </p>
+            <p>Stato: {{ request.status }}</p>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 
-
-  <div class="requests-section">
-    <h2>Richieste di Libri</h2>
-
-    <!-- Richieste Inviate -->
-    <div class="requests-sent">
-      <h3>Richieste Inviate</h3>
-      <ul>
-        <li *ngFor="let request of requestsSent">
-          <p><strong>{{ request.bookTitle }}</strong> di {{ request.author }}</p>
-          <p>Stato: {{ request.status }}</p>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Richieste Ricevute -->
-    <div class="requests-received">
-      <h3>Richieste Ricevute</h3>
-        <ul>
-          <li *ngFor="let request of requestsReceived">
-            <p><strong>{{ request.bookTitle }}</strong> di {{ request.author }}</p>
-            <p>Stato: {{ request.status }}</p>
-          </li>
-        </ul>
+  <div class="modal" *ngIf="showModal">
+    <div class="modal-content">
+      <h2>Inserisci Dettagli Utente</h2>
+      <label>
+        Nome Utente:
+        <input [(ngModel)]="username" placeholder="Inserisci il nome utente" />
+      </label>
+      <label>
+        Numero di Telefono:
+        <input
+          [(ngModel)]="phoneNo"
+          placeholder="Inserisci il numero di telefono"
+        />
+      </label>
+      <div class="modal-buttons">
+        <button (click)="saveUserInfo()">Salva</button>
+      </div>
     </div>
   </div>
 </div>
