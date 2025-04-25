@@ -16,10 +16,10 @@
           [src]="book.coverImg"
           [alt]="book.title"
           class="book-image"
-          (click)="navigateToDetails(i)"
+          (click)="showBookDetails(book)"
         />
         <div class="book-details">
-          <h3 (click)="navigateToDetails(i)">{{ book.title }}</h3>
+          <h3 (click)="showBookDetails(book)">{{ book.title }}</h3>
           <p>Autore: {{ book.author }}</p>
           <p>Descrizione: {{ book.description }}</p>
         </div>
@@ -144,7 +144,7 @@
 
       <div class="form-buttons">
         <button type="submit">Salva</button>
-        <button type="button" (click)="resetForm(newBookForm, showNewBookForm)">
+        <button type="button" (click)="resetForm(newBookForm, 'book')">
           Annulla
         </button>
       </div>
@@ -155,7 +155,7 @@
       <h2>Libri Cercati</h2>
       <ul>
         <li
-          *ngFor="let interest of interests; let i = index"
+          *ngFor="let interest of booksOfInterest; let i = index"
           class="interest-item"
         >
           <div class="interest-details">
@@ -187,10 +187,10 @@
           </div>
         </li>
       </ul>
-      <button (click)="addNewInterest()">Aggiungi Nuovo Interesse</button>
+      <button (click)="addNewBookOfInterest()">Aggiungi Nuovo Interesse</button>
 
       <!-- Modulo per aggiungere o modificare un interesse -->
-      <div
+      <form
         *ngIf="showNewBookOfInterestForm"
         [formGroup]="newBookOfInterestForm"
         (ngSubmit)="saveBookOfInterest()"
@@ -198,19 +198,43 @@
       >
         <label>
           Titolo:
-          <input form placeholder="Titolo" />
+          <input formControlName="title" placeholder="Titolo" />
         </label>
         <label>
           Autore:
-          <input placeholder="Autore" />
+          <input formControlName="author" placeholder="Autore" />
         </label>
         <label>
+          Anno Di Stampa:
+          <input formControlName="printYear" placeholder="Autore" />
+        </label>
+        <label>
+          Casa Editrice:
+          <input formControlName="printCompany" placeholder="Autore" />
+        </label>
+        <label>
+          Lingua:
+          <select formControlName="language">
+            <option value="Italiano">Italiano</option>
+            <option value="Inglese">Inglese</option>
+            <option value="Spagnolo">Spagnolo</option>
+            <option value="Francese">Francese</option>
+          </select>
+        </label>
+        <label>
+          Descrizione:
+          <textarea
+            formControlName="description"
+            placeholder="Descrizione"
+          ></textarea>
         </label>
         <div class="form-buttons">
-          <button (click)="saveInterest()">Salva</button>
-          <button (click)="resetInterestForm()">Annulla</button>
+          <button type="submit">Salva</button>
+          <button (click)="resetForm(newBookOfInterestForm, 'interest')">
+            Annulla
+          </button>
         </div>
-      </div>
+      </form>
     </div>
 
     <div class="requests-section">

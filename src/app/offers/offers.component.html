@@ -54,12 +54,12 @@
       <div *ngFor="let book of filteredBooks" [ngClass]="viewMode === 'grid' ? 'col-md-4 mb-4' : 'col-12 mb-3'">
         <div class="card h-100 flex-row" [ngClass]="viewMode === 'grid' ? '' : 'flex-row align-items-center p-2'">
           <img [src]="book.coverImg" alt="Copertina libro" class="img-fluid"
-            [ngClass]="viewMode === 'grid' ? 'card-img-top' : 'w-25 me-3'" />
+            [ngClass]="viewMode === 'grid' ? 'card-img-top' : 'w-25 me-3'" (click)="showBookDetails(book)" />
           <div class="card-body" [ngClass]="viewMode === 'grid' ? '' : 'p-0'">
             <h5 class="card-title">{{ book.title }}</h5>
             <p class="card-text mb-1">{{ book.author }}</p>
             <p class="card-text mb-1">{{ book.genre }}</p>
-            <p class="card-text">{{ book.condition }}</p>
+            <p class="book-condition">{{ book.condition }}</p>
           </div>
         </div>
       </div>

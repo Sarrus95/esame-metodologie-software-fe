@@ -7,7 +7,7 @@ import { LocalStorageService } from './local-storage.service';
   providedIn: 'root',
 })
 export class BookOfInterestService {
-  private API_URL = 'http://localhost:3000/interest';
+  private API_URL = 'http://localhost:3000/interests';
   private loginAuthToken = '';
 
   constructor(
@@ -19,7 +19,7 @@ export class BookOfInterestService {
 
   addBookOfInterest(newBookOfInterest: any): Observable<any> {
     const headers = { Authorization: this.loginAuthToken };
-    return this.http.post(`${this.API_URL}/interest`, newBookOfInterest, {
+    return this.http.post(`${this.API_URL}/add-interest`, newBookOfInterest, {
       headers,
       responseType: 'text',
     });

@@ -5,6 +5,7 @@
         "auth component",
         "localStorage",
         "offers",
-        "app.routes"
+        "app.routes",
+        "user-profile"
     ]
 }

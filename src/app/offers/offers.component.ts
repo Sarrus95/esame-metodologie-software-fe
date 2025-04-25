@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../log/navbar/navbar.component';
 import { BookService } from '../services/bookservice.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-offers',
@@ -68,6 +69,7 @@ export class OffersComponent {
   ];
 
   constructor(
+    private localStorage: LocalStorageService,
     private bookService: BookService,
     private router: Router,
     private route: ActivatedRoute
@@ -127,5 +129,10 @@ export class OffersComponent {
         }
       });
     }
+  }
+
+  showBookDetails(book: any) {
+    this.localStorage.set('currentBook', JSON.stringify(book));
+    this.router.navigate(['book-details', book._id]);
   }
 }
