@@ -34,8 +34,13 @@ export class UserService {
 
   updateInfo(userData: any): Observable<any> {
     const headers = { Authorization: this.loginAuthToken };
-    return this.http.put(`${this.API_URL}/${this.userId}`, userData, {
+    return this.http.patch(`${this.API_URL}/${this.userId}`, userData, {
       headers,
     });
+  }
+
+  getMyBooks(): Observable<any> {
+    const headers = { Authorization: this.loginAuthToken };
+    return this.http.get(`${this.API_URL}/${this.userId}/my-books`, { headers });
   }
 }

@@ -46,9 +46,23 @@ hr {
   padding: 0.5rem;
 }
 
+.view-toggle {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.view-toggle button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.view-toggle .active {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+}
+
 .book-item {
-  width: 200px;
-  height: 300px;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 1rem;
@@ -57,6 +71,12 @@ hr {
   flex-direction: column;
   align-items: center;
   text-align: center;
+}
+
+.book-item img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
 }
 
 .book-info h3 {
@@ -96,29 +116,22 @@ hr {
 .book-condition .discreto { color: #f39c12; }
 .book-condition .vecchio { color: #e74c3c; }
 
-.card {
-  width: 220px; /* Fixed width */
-  height: 350px; /* Fixed height */
-  border-radius: 10px;
-  overflow: hidden; /* Ensures content doesn't overflow */
+.row {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Align content neatly */
-  transition: transform 0.2s ease-in-out;
+  flex-wrap: wrap; /* Allows items to wrap to the next line */
+  justify-content: space-between; /* Adds spacing between the cards */
+}
+
+.card {
+  max-width: 300px; /* Adjust this value as needed */
+  width: 100%; /* Ensures the card stays within its container */
 }
 
 .card-img-top {
-  height: 200px; /* Fixed height for images */
-  object-fit: contain; /* Ensures images fit without distortion */
+  max-width: 100%;
+  height: auto;
 }
 
-.card-body {
-  flex-grow: 1; /* Allows content to expand properly */
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centers text */
-}
-
-.card:hover {
-  transform: scale(1.05);
+.card {
+  margin: 16px;
 }

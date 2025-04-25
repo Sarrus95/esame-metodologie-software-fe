@@ -54,8 +54,8 @@ export class OffersComponent {
   // Lista delle condizioni dei libri con relative icone
   conditions = [
     { name: 'Nuovo', icon: '🆕' },
-    { name: 'Semi-Nuovo', icon: '✨' },
-    { name: 'Discreto', icon: '📚' },
+    { name: 'Come Nuovo', icon: '✨' },
+    { name: 'Buone Conidizoni', icon: '📚' },
     { name: 'Rovinato', icon: '🛠️' },
   ];
 

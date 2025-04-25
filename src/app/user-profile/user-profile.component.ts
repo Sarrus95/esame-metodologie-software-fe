@@ -1,266 +1,177 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NavbarComponent } from '../log/navbar/navbar.component';
 import { UserService } from '../services/user-service.service';
+import { LocalStorageService } from '../services/local-storage.service';
+import { BookService } from '../services/bookservice.service';
+import { BookOfInterestService } from '../services/book-of-interest.service';
 
-interface BookRequest {
-  bookTitle: string;
-  author: string;
-  type: 'sent' | 'received';
-  status: 'pending' | 'accepted';
-}
-
-interface Book {
-  title: string;
-  author: string;
-  description: string;
-  image: string;
-}
-
-interface Interest {
-  title: string;
-  author: string;
-  description: string;
-}
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
-  imports: [FormsModule, CommonModule, NavbarComponent],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, NavbarComponent],
 })
 export class UserProfileComponent implements OnInit {
+  currentBookIndex: any;
+
+  requestsSent: any;
+  requestsReceived: any;
+  resetInterestForm() {
+    throw new Error('Method not implemented.');
+  }
+  saveInterest() {
+    throw new Error('Method not implemented.');
+  }
+  currentInterest: any;
+  addNewInterest() {
+    throw new Error('Method not implemented.');
+  }
+  interests: any;
+  moveBookDown(_t13: number) {
+    throw new Error('Method not implemented.');
+  }
+  deleteBook(_t13: number) {
+    throw new Error('Method not implemented.');
+  }
+  editBook(_t13: number) {
+    throw new Error('Method not implemented.');
+  }
+  moveBookUp(_t13: number) {
+    throw new Error('Method not implemented.');
+  }
+  navigateToDetails(_t13: number) {
+    throw new Error('Method not implemented.');
+  }
+  showModal: boolean = true;
   username = '';
   phoneNo = '';
   userPhoto =
     'https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png';
-  allUserInfo = false;
-  books: Book[] = [];
-  interests: Interest[] = [];
-  currentBook: Book | null = null;
-  currentBookIndex: number | null = null;
+  newBookForm: FormGroup;
+  showNewBookForm: boolean = false;
+  myBooks: any;
+  newBookOfInterestForm: FormGroup;
+  showNewBookOfInterestForm: boolean = false;
+  myBooksOfInterest: any;
 
-  currentInterest: Interest | null = null;
-  currentInterestIndex: number | null = null;
-
-  requestsSent: BookRequest[] = [];
-  requestsReceived: BookRequest[] = [];
-  i: number | undefined;
-  showModal: boolean = true; // Set this to true to show the modal on page load.
 
   constructor(
-    private router: Router,
-    private cdr: ChangeDetectorRef,
-    private userService: UserService
-  ) {}
+    private fb: FormBuilder,
+    private localStorage: LocalStorageService,
+    private userService: UserService,
+    private bookService: BookService,
+    private bookOfInterestService: BookOfInterestService
+  ) {
+    this.newBookForm = this.fb.group({
+      title: ['', Validators.required],
+      author: ['', Validators.required],
+      coverImg: [''],
+      printYear: [null, [Validators.required, Validators.min(1500)]],
+      printCompany: ['', Validators.required],
+      genre: ['', Validators.required],
+      language: ['', Validators.required],
+      condition: ['', Validators.required],
+      description: ['']
+    });
+    this.newBookOfInterestForm = this.fb.group({
+      title: ['', Validators.required],
+      author: ['', Validators.required],
+      printYear: [null, [Validators.required, Validators.min(1500)]],
+      printCompany: ['', Validators.required],
+    })
+  }
 
   ngOnInit() {
-    this.userService.getInfo().subscribe((userData) => {
-      if (userData) {
-        this.username = userData.username;
-        this.phoneNo = userData.phoneNo;
-        this.allUserInfo = Boolean(this.username && this.phoneNo);
-        this.showModal = !this.allUserInfo;
-      }
-    });
-    const savedBooks = localStorage.getItem('books');
-    const savedInterests = localStorage.getItem('interests');
-    const savedRequestsSent = localStorage.getItem('requestsSent');
-    const savedRequestsReceived = localStorage.getItem('requestsReceived');
-
-    if (savedBooks) this.books = JSON.parse(savedBooks);
-    if (savedInterests) this.interests = JSON.parse(savedInterests);
-    if (savedRequestsSent) this.requestsSent = JSON.parse(savedRequestsSent);
-    if (savedRequestsReceived)
-      this.requestsReceived = JSON.parse(savedRequestsReceived);
-  }
-
-  checkAuthentication(userData: any) {
-    if (userData.username && userData.phoneNo) {
-      this.allUserInfo = true;
-      this.showModal = false; // Close modal if user details are entered.
-    } else {
-      this.showModal = true; // Keep modal open otherwise.
+    this.username = this.localStorage.get("username") || "";
+    this.phoneNo = this.localStorage.get("phoneNo") || "";
+    if (this.username && this.phoneNo) {
+      this.showModal = false;
     }
+    else {
+      this.showModal = true;
+    }
+    this.loadMyBooks();
   }
 
+  loadMyBooks() {
+    this.userService.getMyBooks().subscribe({
+      next: (response) => {
+        this.myBooks = response.myBooks;
+      },
+      error: (err) => console.error('Error fetching books:', err),
+    });
+  }
+  
   saveUserInfo() {
     if (this.username && this.phoneNo) {
-      this.allUserInfo = true;
-      this.showModal = false;
+      const userData = {
+        username: this.username,
+        phoneNo: this.phoneNo
+      }
+      this.userService.updateInfo(userData).subscribe({
+        next: (_) => {
+          this.showModal = false;
+          this.localStorage.set("username", userData.username);
+          this.localStorage.set("phoneNo", userData.phoneNo);
+        }
+      })
     } else {
       alert('Per favore, compila tutti i campi.');
     }
   }
 
-  closeModal() {
-    this.showModal = false;
-  }
-
   addNewBook() {
-    this.currentBook = { title: '', author: '', description: '', image: '' };
-    this.currentBookIndex = null;
-  }
-
-  editBook(index: number) {
-    this.currentBook = { ...this.books[index] };
-    this.currentBookIndex = index;
+    this.showNewBookForm = true; 
+    this.newBookForm.reset(); 
   }
 
   saveBook() {
-    if (
-      this.currentBook?.title &&
-      this.currentBook.author &&
-      this.currentBook.description &&
-      this.currentBook.image
-    ) {
-      if (this.currentBookIndex !== null) {
-        this.books[this.currentBookIndex] = this.currentBook;
-        alert('Libro aggiornato correttamente!');
-      } else {
-        this.books.push(this.currentBook);
-        alert('Nuovo libro aggiunto correttamente!');
-      }
-      localStorage.setItem('books', JSON.stringify(this.books));
-      this.resetForm();
+    if (this.newBookForm.valid) {
+      const newBook = {
+        ...this.newBookForm.value,
+        ownerId: this.localStorage.get("userId")
+      };
+      this.bookService.addBook(newBook).subscribe({
+        next: (_) => {
+          this.showNewBookForm = false; 
+          this.loadMyBooks();
+        }
+      })
     } else {
-      alert('Per favore, compila tutti i campi per salvare.');
+      alert('Per favore, compila tutti i campi obbligatori.');
     }
   }
 
-  deleteBook(index: number) {
-    this.books.splice(index, 1);
-    localStorage.setItem('books', JSON.stringify(this.books));
+  addNewBookOfInterest(){
+    this.showNewBookOfInterestForm = true;
+    this.newBookOfInterestForm.reset();
   }
 
-  navigateToDetails(index: number) {
-    this.router.navigate(['/book-details', index.toString()]);
-  }
-
-  resetForm() {
-    this.currentBook = null;
-    this.currentBookIndex = null;
-  }
-
-  addNewInterest() {
-    this.currentInterest = { title: '', author: '', description: '' };
-    this.currentInterestIndex = null;
-    this.cdr.detectChanges();
-  }
-
-  editInterest(index: number) {
-    this.currentInterest = { ...this.interests[index] };
-    this.currentInterestIndex = index;
-  }
-
-  saveInterest() {
-    if (
-      this.currentInterest?.title &&
-      this.currentInterest.author &&
-      this.currentInterest.description
-    ) {
-      if (this.currentInterestIndex !== null) {
-        this.interests[this.currentInterestIndex] = this.currentInterest;
-        alert('Libro cercato aggiornato correttamente!');
-      } else {
-        this.interests.push(this.currentInterest);
-        alert('Nuovo libro cercato aggiunto correttamente!');
+  saveBookOfInterest(){
+    if(this.newBookOfInterestForm.valid){
+      const newBookOfInterest = {
+        ...this.newBookOfInterestForm.value,
+        ownerId: this.localStorage.get("userId")
+      };
+      this.bookOfInterestService.addBookOfInterest(newBookOfInterest).subscribe({
+        next: (_) => {
+          this.showNewBookOfInterestForm = false;
+          this.loadMyBooks();
+        }
       }
-      localStorage.setItem('interests', JSON.stringify(this.interests));
-      this.resetInterestForm();
-    } else {
-      alert('Per favore, compila tutti i campi per salvare.');
+      )
+    }
+    else{
+      alert('Per favore, compila tutti i campi obbligatori.');
     }
   }
 
-  deleteInterest(index: number) {
-    this.interests.splice(index, 1);
-    localStorage.setItem('interests', JSON.stringify(this.interests));
-  }
-
-  resetInterestForm() {
-    this.currentInterest = null;
-    this.currentInterestIndex = null;
-  }
-
-  addRequest(bookTitle: string, author: string, type: 'sent' | 'received') {
-    const newRequest: BookRequest = {
-      bookTitle,
-      author,
-      type,
-      status: 'pending',
-    };
-    if (type === 'sent') {
-      this.requestsSent.push(newRequest);
-      localStorage.setItem('requestsSent', JSON.stringify(this.requestsSent));
-    } else if (type === 'received') {
-      this.requestsReceived.push(newRequest);
-      localStorage.setItem(
-        'requestsReceived',
-        JSON.stringify(this.requestsReceived)
-      );
-    }
-    alert('Richiesta inviata correttamente!');
-  }
-
-  acceptRequest(index: number, type: 'sent' | 'received') {
-    if (
-      index < 0 ||
-      (type === 'sent' && index >= this.requestsSent.length) ||
-      (type === 'received' && index >= this.requestsReceived.length)
-    ) {
-      console.error('Indice non valido.');
-      return;
-    }
-    if (type === 'sent') {
-      this.requestsSent[index].status = 'accepted';
-      localStorage.setItem('requestsSent', JSON.stringify(this.requestsSent));
-    } else if (type === 'received') {
-      this.requestsReceived[index].status = 'accepted';
-      localStorage.setItem(
-        'requestsReceived',
-        JSON.stringify(this.requestsReceived)
-      );
-    }
-    console.log('Richiesta accettata correttamente!');
-  }
-  moveBookUp(index: number): void {
-    if (index > 0) {
-      const temp = this.books[index];
-      this.books[index] = this.books[index - 1];
-      this.books[index - 1] = temp;
-      localStorage.setItem('books', JSON.stringify(this.books));
-    }
-  }
-
-  moveBookDown(index: number): void {
-    if (index < this.books.length - 1) {
-      const temp = this.books[index];
-      this.books[index] = this.books[index + 1];
-      this.books[index + 1] = temp;
-      localStorage.setItem('books', JSON.stringify(this.books));
-    }
-  }
-
-  moveInterestUp(index: number): void {
-    if (index > 0) {
-      const temp = this.interests[index];
-      this.interests[index] = this.interests[index - 1];
-      this.interests[index - 1] = temp;
-      localStorage.setItem('interests', JSON.stringify(this.interests));
-    }
-  }
-
-  moveInterestDown(index: number): void {
-    if (index < this.interests.length - 1) {
-      const temp = this.interests[index];
-      this.interests[index] = this.interests[index + 1];
-      this.interests[index + 1] = temp;
-      localStorage.setItem('interests', JSON.stringify(this.interests));
-    }
+  resetForm(form: FormGroup,show: boolean) {
+    form.reset();
+    show = false; 
   }
 }
