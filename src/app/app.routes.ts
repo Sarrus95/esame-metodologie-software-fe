@@ -15,10 +15,9 @@ export const routes: Routes = [
   { path: 'login', component: AuthComponent },
   { path: 'register', component: FormRecordComponent },
   { path: 'home', component: OffersComponent },
-  { path: 'profilo/:id', component: UserProfileComponent },
+  { path: 'profile/:id', component: UserProfileComponent },
   { path: 'book-details/:id', component: BookDetailsComponent },
-  { path: 'scambio', component: ExchangeRequestsComponent },
-  { path: 'profile', component: UserProfileComponent },
+  { path: 'exchange', component: ExchangeRequestsComponent },
 ];
 
 @NgModule({

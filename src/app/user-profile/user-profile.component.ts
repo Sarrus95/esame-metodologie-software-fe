@@ -13,6 +13,7 @@ import { LocalStorageService } from '../services/local-storage.service';
 import { BookService } from '../services/bookservice.service';
 import { BookOfInterestService } from '../services/book-of-interest.service';
 import { Router } from '@angular/router';
+import { ExchangeRequestsComponent } from "../exchange-requests/exchange-requests.component";
 
 @Component({
   selector: 'app-user-profile',
@@ -24,7 +25,8 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     CommonModule,
     NavbarComponent,
-  ],
+    ExchangeRequestsComponent
+],
 })
 export class UserProfileComponent implements OnInit {
 requestsReceived: any;

@@ -28,8 +28,8 @@ export class UserService {
       tap((response: any) => {
         this.localStorage.set('loginAuthToken', response.loginAuthToken);
         this.localStorage.set('userId', response.userId);
-        this.localStorage.set('username',response.username);
-        this.localStorage.set('phoneNo',response.phoneNo);
+        this.localStorage.set('username', response.username);
+        this.localStorage.set('phoneNo', response.phoneNo);
         this.loginAuthToken = response.loginAuthToken;
         this.userId = response.userId;
       })
@@ -45,11 +45,22 @@ export class UserService {
 
   getMyBooks(): Observable<any> {
     const headers = { Authorization: this.loginAuthToken };
-    return this.http.get(`${this.API_URL}/${this.userId}/my-books`, { headers });
+    return this.http.get(`${this.API_URL}/${this.userId}/my-books`, {
+      headers,
+    });
   }
 
-  getMyBooksOfInterest(): Observable<any>{
+  getMyBooksOfInterest(): Observable<any> {
     const headers = { Authorization: this.loginAuthToken };
-    return this.http.get(`${this.API_URL}/${this.userId}/my-interests`, { headers });
+    return this.http.get(`${this.API_URL}/${this.userId}/my-interests`, {
+      headers,
+    });
+  }
+
+  getMyRequests(): Observable<any> {
+    const headers = { Authorization: this.loginAuthToken };
+    return this.http.get(`${this.API_URL}/${this.userId}/my-requests`, {
+      headers,
+    });
   }
 }

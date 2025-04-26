@@ -53,11 +53,6 @@
   background-color: #ffffff; 
 }
 
-.request-list li.completed {
-  background-color: #cce5ff; 
-}
-
-
 .status {
   padding: 0.3rem 0.6rem;
   border-radius: 5px;

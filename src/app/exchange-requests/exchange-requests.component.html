@@ -13,8 +13,8 @@
     <h2>Richieste Ricevute</h2>
     <ul class="request-list">
       <li *ngFor="let req of receivedRequests" [ngClass]="getRequestClass(req.status)">
-        <strong>{{ req.from }}</strong> ti ha proposto lo scambio di <strong>{{ req.title }}</strong> 
-        <span class="status" [class]="req.status.toLowerCase()">{{ req.status }}</span>
+        <strong>{{ req.senderRef.username }}</strong> ti ha proposto lo scambio di <strong>{{ req.bookRef.title }}</strong> 
+        <span class="status" [class]="req.status.toLowerCase().replace(' ', '-')">{{ req.status }}</span>
       </li>
     </ul>
   </div>
@@ -26,8 +26,8 @@
     <h2>Richieste Inviate</h2>
     <ul class="request-list">
       <li *ngFor="let req of sentRequests" [ngClass]="getRequestClass(req.status)">
-        Hai chiesto a <strong>{{ req.to }}</strong> lo scambio di <strong>{{ req.title }}</strong> 
-        <span class="status" [class]="req.status.toLowerCase()">{{ req.status }}</span>
+        Hai chiesto a <strong>{{ req.userRef.username }}</strong> lo scambio di <strong>{{ req.bookRef.title }}</strong> 
+        <span class="status" [class]="req.status.toLowerCase().replace(' ', '-')">{{ req.status }}</span>
       </li>
     </ul>
   </div>
@@ -37,10 +37,10 @@
   <div *ngIf="viewMode === 'history'">
     <h2>Storico delle Operazioni</h2>
     <ul class="request-list">
-      <li *ngFor="let operation of history" [ngClass]="getRequestClass(operation.status)">
-        <strong>{{ operation.user }}</strong> ha completato lo scambio di <strong>{{ operation.title }}</strong> 
-        <span class="status" [class]="operation.status.toLowerCase()">{{ operation.status }}</span>
-        <span class="date">{{ operation.date }}</span>
+      <li *ngFor="let request of storedRequests" [ngClass]="getRequestClass(request.status)">
+        <strong>{{ request.user }}</strong> ha completato lo scambio di <strong>{{ request.title }}</strong> 
+        <span class="status" [class]="request.status.toLowerCase()">{{ request.status }}</span>
+        <span class="date">{{ request.date }}</span>
       </li>
     </ul>
   </div>

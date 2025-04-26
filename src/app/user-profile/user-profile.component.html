@@ -239,32 +239,7 @@
 
     <div class="requests-section">
       <h2>Richieste di Libri</h2>
-
-      <!-- Richieste Inviate -->
-      <div class="requests-sent">
-        <h3>Richieste Inviate</h3>
-        <ul>
-          <li *ngFor="let request of requestsSent">
-            <p>
-              <strong>{{ request.bookTitle }}</strong> di {{ request.author }}
-            </p>
-            <p>Stato: {{ request.status }}</p>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Richieste Ricevute -->
-      <div class="requests-received">
-        <h3>Richieste Ricevute</h3>
-        <ul>
-          <li *ngFor="let request of requestsReceived">
-            <p>
-              <strong>{{ request.bookTitle }}</strong> di {{ request.author }}
-            </p>
-            <p>Stato: {{ request.status }}</p>
-          </li>
-        </ul>
-      </div>
+      <app-exchange-requests></app-exchange-requests>
     </div>
   </div>
 

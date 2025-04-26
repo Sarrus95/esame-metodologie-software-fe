@@ -18,7 +18,7 @@ export class NavbarComponent {
   }
 
   updateQueryParams() {
-    this.router.navigate(['/offers'], {
+    this.router.navigate(['/home'], {
       queryParams: { search: this.searchQuery },
     });
     this.searchQuery = ''; // Clear search input after navigation

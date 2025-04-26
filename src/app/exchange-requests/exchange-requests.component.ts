@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../services/user-service.service';
 
 @Component({
   selector: 'app-exchange-requests',
@@ -10,24 +11,26 @@ import { CommonModule } from '@angular/common';
 })
 export class ExchangeRequestsComponent {
   // Le richieste in arrivo e inviate
-  receivedRequests = [
-    { title: 'Il Custode delle Ombre', from: 'Mario', status: 'In attesa' },
-    { title: 'La Spada del Re', from: 'Luca', status: 'Accettata' },
-  ];
-
-  sentRequests = [
-    { title: 'Cuori in Tempesta', to: 'Giulia', status: 'Rifiutata' },
-    { title: 'Odissea Eterna', to: 'Chiara', status: 'In attesa' },
-  ];
+  receivedRequests: any = [];
+  sentRequests: any = [];
 
   // Storico delle operazioni (esempio)
-  history = [
-    { user: 'Mario', title: 'Il Custode delle Ombre', status: 'Completato', date: '2025-04-12' },
-    { user: 'Luca', title: 'La Spada del Re', status: 'Completato', date: '2025-04-10' },
-  ];
+  storedRequests: any = [];
 
   // Stato per controllare quale sezione è attiva
   viewMode: 'received' | 'sent' | 'history' = 'received'; // Default: visualizza le richieste ricevute
+
+  constructor(private userService: UserService){
+    this.userService.getMyRequests().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.receivedRequests = response.receivedRequests;
+        this.sentRequests = response.sentRequests;
+        this.storedRequests = response.storedRequests
+      },
+      error: (err) => console.error("Error Fetching Requests",err)
+    })
+  }
 
   // Funzione per cambiare la vista
   changeView(mode: 'received' | 'sent' | 'history') {
@@ -41,10 +44,8 @@ export class ExchangeRequestsComponent {
         return 'accepted';
       case 'Rifiutata':
         return 'rejected';
-      case 'In attesa':
+      case 'In Corso':
         return 'pending';
-      case 'Completato':
-        return 'completed';
       default:
         return '';
     }

@@ -6,6 +6,7 @@
         "localStorage",
         "offers",
         "app.routes",
-        "user-profile"
+        "user-profile",
+        "exchange-request"
     ]
 }
