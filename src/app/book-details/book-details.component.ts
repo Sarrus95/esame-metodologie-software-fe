@@ -16,6 +16,7 @@ import { ExchangeRequestService } from '../services/exchange-request.service';
 export class BookDetailsComponent implements OnInit {
   book: any; // Contiene il libro attualmente selezionato
   userId: any;
+  username: string = '';
   userBooks: any;
   isModalVisible: boolean = false;
   senderBook: any;
@@ -31,6 +32,7 @@ export class BookDetailsComponent implements OnInit {
   ngOnInit() {
     this.book = JSON.parse(this.localStorage.get('currentBook') || '{}');
     this.userId = this.localStorage.get('userId') || '';
+    this.username = this.localStorage.get('username') || '';
     this.userService.getMyBooks().subscribe({
       next: (response) => (this.userBooks = response.myBooks),
       error: (err) => console.error('Error Fetching Books', err),

@@ -10,7 +10,7 @@
   <!-- Azioni -->
   <div *ngIf="book.ownerId !== userId">
     <div class="book-actions">
-      <button (click)="showExchangeModal()">Richiedi Scambio</button>
+      <button [disabled]="!username || !userBooks" (click)="showExchangeModal()">Richiedi Scambio</button>
     </div>
   </div>
 </div>

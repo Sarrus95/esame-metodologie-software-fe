@@ -169,7 +169,6 @@ throw new Error('Method not implemented.');
         ...this.newBookOfInterestForm.value,
         userRef: this.localStorage.get('userId'),
       };
-      console.log(newBookOfInterest);
       this.bookOfInterestService
         .addBookOfInterest(newBookOfInterest)
         .subscribe({

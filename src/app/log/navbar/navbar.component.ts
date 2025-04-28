@@ -21,6 +21,11 @@ export class NavbarComponent {
     this.router.navigate(['/home'], {
       queryParams: { search: this.searchQuery },
     });
-    this.searchQuery = ''; // Clear search input after navigation
   }
+
+  clearSearch(): void {
+    this.searchQuery = '';
+    this.router.navigate(['/home']);
+  }
+  
 }
