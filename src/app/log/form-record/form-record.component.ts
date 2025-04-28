@@ -1,35 +1,46 @@
 import { Component } from '@angular/core';
 import {
   FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
+  FormGroup, FormsModule, ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import {passwordMatchValidator} from './equivalent.validator';
 import { CommonModule, NgIf } from '@angular/common';
 import { UserService } from '../../services/user-service.service';
+import {RouterLink} from '@angular/router';
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-form-record',
-  imports: [ReactiveFormsModule, CommonModule, NgIf],
   templateUrl: './form-record.component.html',
-  styleUrl: './form-record.component.css',
+  styleUrls: ['./form-record.component.css'],
+  imports: [
+    NgIf,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    RouterLink,
+
+  ]
 })
 export class FormRecordComponent {
   userForm: FormGroup;
   creatingUser: boolean = false;
   activationURL: string = '';
 
-  constructor(
-    private fb: FormBuilder,
-    private userService: UserService
-  ) {
-    this.userForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-    });
+  constructor(private fb: FormBuilder, private userService: UserService) {
+    this.userForm = this.fb.group(
+      {
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      {
+        validators: passwordMatchValidator('password', 'confirmPassword'),
+      }
+    );
   }
+
   onSubmit() {
     if (this.userForm.valid) {
       this.creatingUser = true;
@@ -50,6 +61,8 @@ export class FormRecordComponent {
         }
       );
     }
-    this.userForm.reset();
+        this.userForm.reset();
+
+    }
   }
-}
+

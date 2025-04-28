@@ -6,27 +6,7 @@
   >
     <h2 class="text-center mb-4">Sign Up</h2>
 
-    <div class="form-group mb-3" onfocus="showErrorLabel()">
-      <label for="username" class="form-label">Username:</label>
-      <input
-        formControlName="username"
-        id="username"
-        type="text"
-        class="form-control"
-        placeholder="Enter your username"
-        required
-      />
-      <div
-        class="error-label"
-        *ngIf="
-          userForm.controls['username'].touched &&
-          userForm.controls['username'].hasError('required')
-        "
-      >
-        USERNAME IS REQUIRED
-      </div>
-    </div>
-
+    <!-- Email -->
     <div class="form-group mb-3">
       <label for="email" class="form-label">Email:</label>
       <input
@@ -38,16 +18,26 @@
         required
       />
       <div
-        class="error-label"
+        class="error-label text-danger"
         *ngIf="
           userForm.controls['email'].touched &&
           userForm.controls['email'].hasError('required')
         "
       >
-        EMAIL IS REQUIRED
+        Email is required.
+      </div>
+      <div
+        class="error-label text-danger"
+        *ngIf="
+          userForm.controls['email'].touched &&
+          userForm.controls['email'].hasError('email')
+        "
+      >
+        Invalid email format.
       </div>
     </div>
 
+    <!-- Password -->
     <div class="form-group mb-4" onfocus="showErrorLabel()">
       <label for="password" class="form-label">Password:</label>
       <input
@@ -59,13 +49,49 @@
         required
       />
       <div
-        class="error-label"
+        class="error-label text-danger"
         *ngIf="
           userForm.controls['password'].touched &&
           userForm.controls['password'].hasError('required')
         "
       >
-        PASSWORD MUST BE AT LEAST 8 CHARACTERS LONG
+        Password is required.
+      </div>
+      <div
+        class="error-label text-danger"
+        *ngIf="
+          userForm.controls['password'].touched &&
+          userForm.controls['password'].hasError('minlength')
+        "
+      >
+        Password must be at least 8 characters long.
+      </div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="form-group mb-3">
+      <label for="confirmPassword" class="form-label">Confirm Password:</label>
+      <input
+        formControlName="confirmPassword"
+        id="confirmPassword"
+        type="password"
+        class="form-control"
+        placeholder="Retype your password"
+      />
+      <div
+        class="error-label text-danger"
+        *ngIf="
+          userForm.controls['confirmPassword'].touched &&
+          userForm.controls['confirmPassword'].hasError('required')
+        "
+      >
+        Confirm password is required.
+      </div>
+      <div
+        class="error-label text-danger"
+        *ngIf="userForm.errors?.['notMatching']"
+      >
+        Passwords do not match.
       </div>
     </div>
 
@@ -78,7 +104,6 @@
     </button>
   </form>
 </div>
-
 <div
   class="modal fade"
   id="activationModal"
@@ -95,7 +120,7 @@
         <p>Activate your account here:</p>
         <a [href]="activationURL" target="_blank">{{ activationURL }}</a>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" [routerLink]="['/login']">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>

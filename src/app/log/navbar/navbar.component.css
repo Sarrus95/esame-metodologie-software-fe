@@ -63,3 +63,6 @@
   background-color: #fff; /* Sfondo bianco al passaggio del mouse */
   color: #000; /* Testo nero */
 }
+.d-flex{
+  display: flex;
+}
