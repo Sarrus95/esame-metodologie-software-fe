@@ -1,46 +1,103 @@
 <div class="exchange-container">
   <!-- Bottoni per selezionare la vista -->
   <div class="view-toggle">
-    <button (click)="changeView('received')" [class.active]="viewMode === 'received'">Richieste Ricevute</button>
-    <button (click)="changeView('sent')" [class.active]="viewMode === 'sent'">Richieste Inviate</button>
-    <button (click)="changeView('history')" [class.active]="viewMode === 'history'">Storico Operazioni</button>
+    <button
+      (click)="changeView('received')"
+      [class.active]="viewMode === 'received'"
+    >
+      Richieste Ricevute
+    </button>
+    <button (click)="changeView('sent')" [class.active]="viewMode === 'sent'">
+      Richieste Inviate
+    </button>
+    <button
+      (click)="changeView('history')"
+      [class.active]="viewMode === 'history'"
+    >
+      Storico Operazioni
+    </button>
   </div>
 
-<hr> <hr>
+  <hr />
+  <hr />
 
   <!-- Sezione per le richieste ricevute -->
   <div *ngIf="viewMode === 'received'">
     <h2>Richieste Ricevute</h2>
-    <ul class="request-list">
-      <li *ngFor="let req of receivedRequests" [ngClass]="getRequestClass(req.status)">
-        <strong>{{ req.senderRef.username }}</strong> ti ha proposto lo scambio di <strong>{{ req.bookRef.title }}</strong> 
-        <span class="status" [class]="req.status.toLowerCase().replace(' ', '-')">{{ req.status }}</span>
-      </li>
-    </ul>
+    <div class="request-area" *ngFor="let req of receivedRequests">
+      <ul class="request-list">
+        <li
+          [ngClass]="getRequestClass(req.status)"
+          *ngIf="req.status === 'In Corso'"
+        >
+          <strong>{{ req.senderRef.username }}</strong> ti ha proposto lo
+          scambio di <strong>{{ req.bookRef.title }}</strong> per
+          <strong>{{ req.senderBook.title }}</strong>
+          <span
+            class="status"
+            [class]="req.status.toLowerCase().replace(' ', '-')"
+            >{{ req.status }}</span
+          >
+          <div class="request-buttons">
+            <button
+              class="btn btn-success"
+              (click)="exchangeReuqestHandler(req, 'true')"
+            >
+              Accetta
+            </button>
+            <button
+              class="btn btn-danger"
+              (click)="exchangeReuqestHandler(req, 'false')"
+            >
+              Rifiuta
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
-
-
 
   <!-- Sezione per le richieste inviate -->
   <div *ngIf="viewMode === 'sent'">
     <h2>Richieste Inviate</h2>
     <ul class="request-list">
-      <li *ngFor="let req of sentRequests" [ngClass]="getRequestClass(req.status)">
-        Hai chiesto a <strong>{{ req.userRef.username }}</strong> lo scambio di <strong>{{ req.bookRef.title }}</strong> 
-        <span class="status" [class]="req.status.toLowerCase().replace(' ', '-')">{{ req.status }}</span>
+      <li
+        *ngFor="let req of sentRequests"
+        [ngClass]="getRequestClass(req.status)"
+      >
+        Hai chiesto a <strong>{{ req.userRef.username }}</strong> lo scambio di
+        <strong>{{ req.bookRef.title }}</strong> per
+        <strong> {{ req.senderBook.title }}</strong>
+        <span
+          class="status"
+          [class]="req.status.toLowerCase().replace(' ', '-')"
+          >{{ req.status }}</span
+        >
       </li>
     </ul>
   </div>
-  
 
   <!-- Sezione per lo storico delle operazioni -->
   <div *ngIf="viewMode === 'history'">
     <h2>Storico delle Operazioni</h2>
     <ul class="request-list">
-      <li *ngFor="let request of storedRequests" [ngClass]="getRequestClass(request.status)">
-        <strong>{{ request.user }}</strong> ha completato lo scambio di <strong>{{ request.title }}</strong> 
-        <span class="status" [class]="request.status.toLowerCase()">{{ request.status }}</span>
-        <span class="date">{{ request.date }}</span>
+      <li
+        *ngFor="let request of storedRequests"
+        [ngClass]="getRequestClass(request.status)"
+      >
+        <strong>{{
+          request.userRef.username !== username
+            ? request.userRef.username + " ha"
+            : "Hai"
+        }}</strong>
+        {{ request.status === "Accettata" ? "accettato" : "rifiutato" }} lo
+        scambio di <strong>{{ request.bookRef.title }}</strong> con
+        <strong>{{ request.senderBook.title }}</strong>
+        <br>
+        @if(request.status === "Accettata" && username !==
+        request.userRef.username){ Numero di telefono
+        <strong>{{ request.phoneNo }}</strong>
+        }
       </li>
     </ul>
   </div>

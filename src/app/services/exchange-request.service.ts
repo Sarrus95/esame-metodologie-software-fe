@@ -24,9 +24,13 @@ export class ExchangeRequestService {
     return this.http.post(`${this.API_URL}/send-request`, request, { headers });
   }
 
-  updateExchangeRequest(request: any,response: string): Observable<any> {
-    const headers = { Authorization: this.loginAuthToken, requestResponse: response, phoneNo: this.phoneNo };
-    return this.http.patch(`${this.API_URL},/send-request`, request, {
+  updateExchangeRequest(request: any, response: string): Observable<any> {
+    const headers = {
+      Authorization: this.loginAuthToken,
+      requestResponse: response,
+      phoneNo: this.phoneNo,
+    };
+    return this.http.patch(`${this.API_URL}/send-request`, request, {
       headers,
     });
   }

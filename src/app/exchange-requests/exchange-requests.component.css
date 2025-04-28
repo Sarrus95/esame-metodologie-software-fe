@@ -1,10 +1,11 @@
+/* General container styling */
 .exchange-container {
   padding: 1.5rem;
   max-width: 800px;
   margin: auto;
 }
 
-/* Stili per i bottoni per cambiare vista */
+/* View toggle buttons styling */
 .view-toggle {
   margin-bottom: 1rem;
 }
@@ -23,6 +24,12 @@
   color: white;
 }
 
+.view-toggle button:hover {
+  background-color: #0056b3;
+  color: #ffffff;
+}
+
+/* Request list styling */
 .request-list {
   list-style: none;
   padding: 0;
@@ -34,25 +41,32 @@
   border-radius: 8px;
   margin-bottom: 0.5rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   background-color: #fafafa;
-  transition: background-color 0.3s ease; /* Per una transizione fluida */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-/* Colori per lo stato di ogni riquadro */
 .request-list li.accepted {
-  background-color: #d4edda; 
+  background-color: #d4edda;
 }
 
 .request-list li.rejected {
-  background-color: #f8d7da; 
+  background-color: #f8d7da;
 }
 
 .request-list li.pending {
-  background-color: #ffffff; 
+  background-color: #ffffff;
 }
 
+.request-list li:hover {
+  background-color: #e2e6ea;
+}
+
+/* Status label styling */
 .status {
   padding: 0.3rem 0.6rem;
   border-radius: 5px;
@@ -61,8 +75,26 @@
   color: #000000;
 }
 
+/* Date styling */
 .date {
   font-size: 0.75rem;
   color: #6c757d;
   margin-left: 10px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+  .exchange-container {
+    padding: 1rem;
+    max-width: 100%;
+  }
+  .view-toggle button {
+    padding: 0.4rem 0.8rem;
+    margin-bottom: 5px;
+  }
+  .request-list li {
+    padding: 0.5rem;
+    flex-direction: column; /* Stack content vertically */
+    align-items: flex-start; /* Align text to the left */
+  }
 }
