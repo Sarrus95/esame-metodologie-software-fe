@@ -6,11 +6,12 @@
   top: 0; /* Fissa la navbar all'inizio */
   width: 100%; /* Occupa tutta la larghezza della pagina */
   z-index: 1000; /* Stai sopra gli altri elementi */
-  background: linear-gradient(
+  /*background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.9), /* Nero opaco a sinistra */
-    rgba(0, 0, 0, 0.1)  /* Trasparente verso l'immagine */
-  );
+    rgba(0, 0, 0, 0.9), Nero opaco a sinistra
+    rgba(0, 0, 0, 0.1)   Trasparente verso l'immagine
+  );*/
+  background: black;
   transition: background-color 0.3s ease-in-out; /* Animazione per il cambio di colore */
 
 }
@@ -55,14 +56,12 @@
 }
 
 .navbar-dark-bg .btn-outline-light {
-  color: black;
-  border-color: black;
+  color: white;
+  border-color: white;
 }
 
 .navbar-dark-bg .btn-outline-light:hover {
   background-color: #fff; /* Sfondo bianco al passaggio del mouse */
   color: #000; /* Testo nero */
 }
-.d-flex{
-  display: flex;
-}
+

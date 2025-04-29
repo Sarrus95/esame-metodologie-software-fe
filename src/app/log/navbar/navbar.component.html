@@ -18,14 +18,14 @@
       </ul>
       <form class="d-flex">
         <input
-          class="form-control me-2"
+          class="form-control me-2 "
           type="search"
           placeholder="Cerca..."
           [(ngModel)]="searchQuery"
           name="searchQuery"
         />
         <button
-          class="btn btn-outline-light"
+          class="btn btn-outline-light me-2"
           type="button"
           (click)="updateQueryParams()"
           [disabled]="!searchQuery"
@@ -33,7 +33,7 @@
           Search
         </button>
         <button
-          class="btn btn-secondary ms-2"
+          class="btn btn-secondary  "
           type="button"
           (click)="clearSearch()"
           [disabled]="!searchQuery"
