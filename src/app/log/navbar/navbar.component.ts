@@ -25,7 +25,9 @@ export class NavbarComponent {
 
   clearSearch(): void {
     this.searchQuery = '';
-    this.router.navigate(['/home']);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/home']); // Trigger component reload
+    });
   }
   
 }

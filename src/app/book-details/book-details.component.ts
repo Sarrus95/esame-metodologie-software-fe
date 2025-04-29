@@ -34,7 +34,10 @@ export class BookDetailsComponent implements OnInit {
     this.userId = this.localStorage.get('userId') || '';
     this.username = this.localStorage.get('username') || '';
     this.userService.getMyBooks().subscribe({
-      next: (response) => (this.userBooks = response.myBooks),
+      next: (response) => {
+        this.userBooks = response.myBooks.filter;
+        this.userBooks = this.userBooks.filter((book: any) => book.status === "In Attesa Di Scambio")
+      },
       error: (err) => console.error('Error Fetching Books', err),
     });
   }
@@ -55,6 +58,7 @@ export class BookDetailsComponent implements OnInit {
       senderRef: this.userId,
       senderBook: this.senderBook._id,
     };
+    console.log(request)
     this.exchangeRequest.sendExchangeRequest(request).subscribe({
       next: (_) => this.responseMessage = "Richiesta Di Scambio Inviata!",
       error: (err) => console.error(err)

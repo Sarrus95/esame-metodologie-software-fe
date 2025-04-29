@@ -19,23 +19,25 @@
   <div class="modal-content">
     <div class="modal-header">
       <button class="close-button" (click)="closeExchangeModal()">✖</button>
-      <h2 *ngIf="!responseMessage">Inserisci Dettagli Utente</h2>
+      <h2 *ngIf="!responseMessage">Scegli libro</h2>
     </div>
     <ul *ngIf="!responseMessage">
-      <li *ngFor="let book of userBooks; let i = index" class="book-item">
-        <input
-          type="radio"
-          name="selectedBook"
-          [value]="book"
-          [(ngModel)]="senderBook"
-        />
-        <img [src]="book.coverImg" [alt]="book.title" class="book-image" />
-        <div class="book-details">
-          <h3>{{ book.title }}</h3>
-          <p>Autore: {{ book.author }}</p>
-          <p>Descrizione: {{ book.description }}</p>
-        </div>
-      </li>
+      <div *ngFor="let book of userBooks; let i = index">
+        <li class="book-item">
+          <input
+            type="radio"
+            name="selectedBook"
+            [value]="book"
+            [(ngModel)]="senderBook"
+          />
+          <img [src]="book.coverImg" [alt]="book.title" class="book-image" />
+          <div class="book-details">
+            <h3>{{ book.title }}</h3>
+            <p>Autore: {{ book.author }}</p>
+            <p>Descrizione: {{ book.description }}</p>
+          </div>
+        </li>
+      </div>
     </ul>
     <div *ngIf="responseMessage">
       <h3>{{ responseMessage }}</h3>

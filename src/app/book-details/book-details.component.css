@@ -62,6 +62,12 @@ p {
   margin-top: 20px;
 }
 
+.book-actions button:disabled {
+  opacity: 0.5; /* Makes the button look less active */
+  cursor: not-allowed; /* Changes the cursor to indicate it's disabled */
+}
+
+
 button {
   background-color: #3498db;
   color: #ffffff;

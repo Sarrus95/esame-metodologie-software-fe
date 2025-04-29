@@ -63,7 +63,18 @@ export class ExchangeRequestsComponent {
 
   exchangeReuqestHandler(request: any,response: string) {
     this.exchangeRequestService.updateExchangeRequest(request,response).subscribe({
-      next: (response) => this.message = response.message,
+      next: (response) => {
+        this.message = response.message;
+        alert(this.message);
+        this.userService.getMyRequests().subscribe({
+          next: (response) => {
+            this.receivedRequests = response.receivedRequests;
+            this.sentRequests = response.sentRequests;
+            this.storedRequests = response.storedRequests;
+          },
+          error: (err) => console.error('Error Fetching Requests', err),
+        });
+      },
       error: (err) => console.error(err)
     });
   }
